@@ -1,1489 +1,1676 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Umair Inayat - ML Engineer & Data Scientist Portfolio showcasing expertise in AI, Machine Learning, NLP, and Django development.">
     <meta name="author" content="Umair Inayat">
     <title>Umair Inayat | ML Engineer Portfolio</title>
-    <!-- font icons -->
-    <link rel="stylesheet" href="assets/vendors/themify-icons/css/themify-icons.css">
-    <!-- Premium Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=General+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Bootstrap + Steller main styles -->
-	<link rel="stylesheet" href="assets/css/steller.css">
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600;700&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         :root {
-            /* Unified Color Palette */
-            --dark-bg: #0a0a0a;
-            --dark-surface: #141414;
-            --primary: #FF3366;
-            --primary-light: #FF6B6B;
-            --primary-dark: #CC2952;
-            --accent: #00F5FF;
-            --accent-light: #33F7FF;
-            --accent-dark: #00C2CC;
+            --primary: #00ff88;
+            --secondary: #ff0066;
+            --accent: #00d4ff;
+            --bg-dark: #0a0a0a;
+            --bg-darker: #050505;
+            --bg-card: rgba(15, 15, 15, 0.8);
             --text-primary: #ffffff;
             --text-secondary: #a0a0a0;
-            --text-tertiary: #707070;
-            --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-            --gradient-accent: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
-            --gradient-mixed: linear-gradient(135deg, var(--primary), var(--accent));
-            --shadow-primary: 0 10px 30px rgba(255, 51, 102, 0.2);
-            --shadow-accent: 0 10px 30px rgba(0, 245, 255, 0.2);
-            --shadow-sm: 0 4px 12px rgba(255, 51, 102, 0.2);
-            --shadow-lg: 0 10px 30px rgba(255, 51, 102, 0.3);
+            --text-muted: #666666;
+            --gradient-primary: linear-gradient(135deg, #00ff88 0%, #00d4ff 100%);
+            --gradient-secondary: linear-gradient(135deg, #ff0066 0%, #ff6b35 100%);
+            --gradient-bg: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            --glow: 0 0 20px rgba(0, 255, 136, 0.3);
+            --glow-secondary: 0 0 20px rgba(255, 0, 102, 0.3);
         }
 
-        /* Update all color references */
         body {
-            background-color: var(--dark-bg);
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-dark);
             color: var(--text-primary);
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
             line-height: 1.6;
         }
 
-        .header::before {
+        /* Animated Background */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: var(--gradient-bg);
+        }
+
+        .animated-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background: 
-                radial-gradient(circle at 20% 20%, rgba(255, 51, 102, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(0, 245, 255, 0.15) 0%, transparent 50%);
+                radial-gradient(circle at 20% 20%, rgba(0, 255, 136, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 0, 102, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 60%, rgba(0, 212, 255, 0.05) 0%, transparent 50%);
+            animation: float 20s ease-in-out infinite;
         }
 
-        .modern-card {
-            background: rgba(20, 20, 20, 0.7);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        .floating-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
         }
 
-        .modern-card:hover {
-            border-color: var(--primary);
-            box-shadow: var(--shadow-primary);
-        }
-
-        .premium-button {
-            border: 2px solid var(--primary);
-            color: var(--text-primary);
-        }
-
-        .premium-button::before {
-            background: var(--gradient-primary);
-        }
-
-        .premium-button:hover {
-            box-shadow: var(--shadow-primary);
-        }
-
-        .section-title {
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            background-clip: text;
-        }
-
-        .skill-bar {
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .skill-progress {
-            background: var(--gradient-primary);
-        }
-
-        .skill-progress::after {
-            background: linear-gradient(
-                90deg,
-                transparent,
-                rgba(255, 255, 255, 0.2),
-                transparent
-            );
-        }
-
-        .social-icon {
-            background: var(--dark-surface);
-        }
-
-        .social-icon::before {
-            background: var(--gradient-primary);
-        }
-
-        .social-icon:hover {
-            box-shadow: var(--shadow-primary);
-        }
-
-        .portfolio-overlay {
-            background: linear-gradient(
-                to top,
-                rgba(10, 10, 10, 0.9),
-                transparent
-            );
-        }
-
-        /* Update scrollbar */
-        ::-webkit-scrollbar-thumb {
-            background: var(--gradient-primary);
-        }
-
-        /* Update all links */
-        a {
-            color: var(--primary);
-            transition: color 0.3s ease;
-        }
-
-        a:hover {
-            color: var(--primary-light);
-        }
-
-        /* Update form elements */
-        .form-control {
-            background: var(--dark-surface);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--text-primary);
-        }
-
-        .form-control:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 0.2rem rgba(255, 51, 102, 0.25);
-        }
-
-        /* Update card elements */
-        .card {
-            background: var(--dark-surface);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .card:hover {
-            border-color: var(--primary);
-            box-shadow: var(--shadow-primary);
-        }
-
-        /* Update navigation */
-        .navbar {
-            background: var(--dark-surface);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .navbar-light .navbar-nav .nav-link {
-            color: var(--text-primary) !important;
-        }
-
-        .navbar-light .navbar-nav .nav-link:hover {
-            color: var(--primary) !important;
-        }
-
-        /* Update footer */
-        .page-footer {
-            background: var(--dark-bg);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        /* Update testimonials */
-        .testmonial-card {
-            background: var(--dark-surface);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .testmonial-card:hover {
-            border-color: var(--primary);
-            box-shadow: var(--shadow-primary);
-        }
-
-        /* Update blog posts */
-        .post-details a {
-            color: var(--text-secondary);
-        }
-
-        .post-details a:hover {
-            color: var(--primary);
-        }
-
-        /* Update contact section */
-        .contact-infos h5 {
-            color: var(--primary);
-        }
-
-        .contact-infos p {
-            color: var(--text-secondary);
-        }
-
-        /* Update widget items */
-        .widget-item h2 {
-            color: var(--primary);
-        }
-
-        .widget-item p {
-            color: var(--text-secondary);
-        }
-
-        /* Update progress bars */
-        .progress {
-            background: var(--dark-surface);
-        }
-
-        .progress-bar {
-            background: var(--gradient-primary);
-        }
-
-        /* Update buttons */
-        .btn-primary {
-            background: var(--gradient-mixed);
-            border: none;
-            padding: 12px 28px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: var(--shadow-lg);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .btn-primary:hover {
-            transform: translateY(-3px) scale(1.04);
-            box-shadow: var(--shadow-sm);
-        }
-        .btn-dark {
-            background: var(--dark-surface);
-            color: var(--text-primary);
-            border: 1px solid var(--primary);
-            transition: background 0.3s, color 0.3s;
-        }
-        .btn-dark:hover {
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
             background: var(--primary);
-            color: #fff;
+            border-radius: 50%;
+            animation: particle-float 8s infinite ease-in-out;
+            opacity: 0.6;
         }
 
-        /* Premium Typography */
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            line-height: 1.6;
+        @keyframes particle-float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.6; }
+            50% { transform: translateY(-20px) rotate(180deg); opacity: 1; }
         }
 
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            color: #fff;
-            background: none !important;
-            -webkit-background-clip: initial !important;
-            background-clip: initial !important;
-            animation: none !important;
-            text-shadow: none !important;
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-10px) rotate(1deg); }
+            66% { transform: translateY(10px) rotate(-1deg); }
         }
 
-        .section-title {
-            font-size: 3.5rem;
-            font-weight: 700;
-            font-style: italic;
-            margin-bottom: 2rem;
-            color: #fff;
-            background: none !important;
-            -webkit-background-clip: initial !important;
-            background-clip: initial !important;
-            animation: none !important;
-            text-shadow: none !important;
-        }
-
-        .display-text {
-            font-family: 'Playfair Display', serif;
-            font-weight: 700;
-            font-style: italic;
-        }
-
-        /* Enhanced Header */
-        .header {
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* Modern Card Design */
-        .modern-card {
-            border-radius: 16px;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 255, 136, 0.2);
+            z-index: 1000;
+            padding: 1rem 0;
             transition: all 0.3s ease;
         }
 
-        /* Unique Button Styles */
-        .premium-button {
-            position: relative;
-            padding: 12px 28px;
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 600;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            overflow: hidden;
+        .navbar.scrolled {
+            background: rgba(5, 5, 5, 0.98);
+            border-bottom: 1px solid rgba(0, 255, 136, 0.4);
         }
 
-        /* Enhanced Section Titles */
-        .section-title {
-            font-size: 3.5rem;
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.5rem;
             font-weight: 700;
-            font-style: italic;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary);
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8rem 2rem 4rem;
+            position: relative;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-content {
+            animation: slideInLeft 1s ease-out;
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+        }
+
+        .hero-description {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .hero-text {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            max-width: 500px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
             margin-bottom: 2rem;
         }
 
-        /* Unique Progress Bars */
-        .skill-bar {
-            height: 8px;
-            border-radius: 4px;
-            overflow: hidden;
-            position: relative;
+        .btn {
+            padding: 0.875rem 2rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
-        .skill-progress {
-            height: 100%;
-            border-radius: 4px;
-            position: relative;
-            overflow: hidden;
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: var(--bg-dark);
+            box-shadow: var(--glow);
         }
 
-        .skill-progress::after {
-            animation: shine 2s infinite;
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.4);
         }
 
-        @keyframes shine {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border: 2px solid var(--primary);
         }
 
-        /* Enhanced Social Icons */
-        .social-icon {
-            width: 45px;
-            height: 45px;
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: var(--bg-dark);
+            transform: translateY(-3px);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            width: 50px;
+            height: 50px;
+            background: var(--bg-card);
+            border: 1px solid rgba(0, 255, 136, 0.3);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .social-link:hover {
+            background: var(--primary);
+            color: var(--bg-dark);
+            transform: translateY(-3px);
+            box-shadow: var(--glow);
+        }
+
+        .hero-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: slideInRight 1s ease-out;
+        }
+
+        .hero-avatar {
+            position: relative;
+            width: 400px;
+            height: 400px;
+        }
+
+        .avatar-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        .avatar-image {
+            position: relative;
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            background: var(--bg-card);
+            border: 3px solid var(--primary);
+            margin: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8rem;
+            color: var(--primary);
+            overflow: hidden;
+        }
+
+        .hero-stats {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 3rem;
+            animation: slideInUp 1s ease-out 0.5s both;
+        }
+
+        .stat-item {
+            text-align: center;
+            background: var(--bg-card);
+            padding: 1.5rem 2rem;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Sections */
+        .section {
+            padding: 6rem 2rem;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-subtitle {
+            font-size: 1rem;
+            color: var(--primary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .section-description {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* About Section */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+        }
+
+        .about-img {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 20px;
+            border: 3px solid var(--primary);
+            filter: drop-shadow(0 10px 30px rgba(0, 255, 136, 0.3));
+        }
+
+        .about-content h3 {
+            font-size: 2rem;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .about-role {
+            font-size: 1.2rem;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-text {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-card {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: var(--glow);
+        }
+
+        .skill-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .skill-name {
+            font-size: 1.25rem;
+            color: var(--text-primary);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .skill-progress {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+
+        .skill-bar {
+            height: 100%;
+            background: var(--gradient-primary);
+            border-radius: 10px;
+            transition: width 2s ease-in-out;
+            position: relative;
+        }
+
+        .skill-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        .skill-percentage {
+            font-size: 0.9rem;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Services Section */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: var(--bg-card);
+            padding: 2.5rem 2rem;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            backdrop-filter: blur(10px);
+            text-align: center;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
         }
 
-        .social-icon i {
-            position: relative;
-            z-index: 1;
-            transition: transform 0.3s ease;
-        }
-
-        .social-icon:hover i {
-            transform: scale(1.2) rotate(360deg);
-        }
-
-        /* Portfolio Grid Enhancement */
-        .portfolio-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2.5rem 2.5rem;
-            padding: 2.5rem 0;
-        }
-
-        .portfolio-item {
-            position: relative;
-            border-radius: 16px;
-            overflow: hidden;
-            aspect-ratio: 16/9;
-            margin: 0.5rem;
-        }
-
-        .portfolio-item img {
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.1), transparent);
+            transition: left 0.5s ease;
         }
 
-        .portfolio-item:hover img {
-            transform: scale(1.1);
+        .service-card:hover::before {
+            left: 100%;
         }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 10px;
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: var(--glow);
         }
 
-        ::-webkit-scrollbar-track {
-            background: var(--dark-bg);
+        .service-icon {
+            font-size: 4rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .service-title {
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .service-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Portfolio Section */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .portfolio-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .portfolio-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: var(--glow);
+        }
+
+        .portfolio-image {
+            height: 200px;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--bg-dark);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .portfolio-content {
+            padding: 2rem;
+        }
+
+        .portfolio-title {
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .portfolio-tech {
+            color: var(--primary);
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .portfolio-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .portfolio-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .portfolio-link {
+            padding: 0.5rem 1rem;
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .portfolio-link:hover {
+            background: var(--primary);
+            color: var(--bg-dark);
+        }
+
+        /* Contact Section */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: var(--bg-card);
+            border-radius: 15px;
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--bg-dark);
+            font-size: 1.25rem;
+        }
+
+        .contact-details h4 {
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .contact-details p {
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        .contact-form {
+            background: var(--bg-card);
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            color: var(--text-primary);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0, 255, 136, 0.2);
+        }
+
+        .form-control::placeholder {
+            color: var(--text-muted);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--bg-darker);
+            padding: 3rem 2rem;
+            border-top: 1px solid rgba(0, 255, 136, 0.3);
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-text {
+            color: var(--text-secondary);
+        }
+
+        .footer-socials {
+            display: flex;
+            gap: 1rem;
+        }
+
+        /* Animations */
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.05); opacity: 0.6; }
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
         }
 
         /* Responsive Design */
         @media (max-width: 768px) {
-            .section-title {
+            .nav-menu {
+                position: fixed;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(5, 5, 5, 0.98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                padding: 2rem;
+                transform: translateY(-100%);
+                transition: transform 0.3s ease;
+                border-top: 1px solid rgba(0, 255, 136, 0.3);
+            }
+
+            .nav-menu.active {
+                transform: translateY(0);
+            }
+
+            .nav-toggle {
+                display: block;
+            }
+
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 2rem;
+            }
+
+            .hero-title {
                 font-size: 2.5rem;
             }
-            .portfolio-grid {
+
+            .hero-stats {
+                position: relative;
+                bottom: auto;
+                transform: none;
+                flex-direction: column;
+                gap: 1rem;
+                margin-top: 2rem;
+            }
+
+            .about-grid,
+            .contact-grid {
                 grid-template-columns: 1fr;
-                gap: 1.5rem;
+                gap: 2rem;
             }
-            .portfolio-item {
-                margin: 0.5rem 0;
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .hero-avatar {
+                width: 300px;
+                height: 300px;
+            }
+
+            .avatar-image {
+                width: 250px;
+                height: 250px;
+                font-size: 6rem;
             }
         }
 
-        /* Service Section Unified Theme */
-        #service.section {
-            background: var(--dark-bg);
-            color: var(--text-primary);
-            position: relative;
-            overflow: hidden;
-        }
-        #service.section::before {
-            content: '';
-            position: absolute;
-            top: -30%;
-            left: -30%;
-            width: 160%;
-            height: 160%;
-            background: linear-gradient(120deg, var(--primary) 0%, var(--accent) 100%);
-            opacity: 0.08;
-            filter: blur(80px);
-            animation: bgMove 18s linear infinite alternate;
-            z-index: 0;
-        }
-        @keyframes bgMove {
-            0% { transform: scale(1) rotate(0deg); }
-            100% { transform: scale(1.1) rotate(8deg); }
-        }
-        #service .section-title {
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            animation: fadeInUp 1s cubic-bezier(.77,0,.18,1) 0.2s both, shimmer 2.5s linear infinite;
-            position: relative;
-            z-index: 1;
-        }
-        @keyframes shimmer {
-            0% { text-shadow: 0 0 10px var(--primary), 0 0 20px var(--accent); }
-            50% { text-shadow: 0 0 30px var(--accent), 0 0 40px var(--primary); }
-            100% { text-shadow: 0 0 10px var(--primary), 0 0 20px var(--accent); }
-        }
-        #service .subtitle {
-            opacity: 0.85;
-            animation: fadeInUp 1s cubic-bezier(.77,0,.18,1) 0.1s both;
-            position: relative;
-            z-index: 1;
-        }
-        #service .custom-card.card {
-            background: var(--dark-surface);
-            border: 2px solid transparent;
-            color: var(--text-primary);
-            box-shadow: 0 4px 24px rgba(0,0,0,0.25);
-            transition: transform 0.4s cubic-bezier(.77,0,.18,1), box-shadow 0.4s cubic-bezier(.77,0,.18,1), border 0.4s;
+        /* Scroll animations */
+        .scroll-animate {
             opacity: 0;
-            transform: translateY(40px) scale(0.98) rotate(-2deg);
-            animation: fadeInUpCard 1.1s cubic-bezier(.77,0,.18,1) forwards;
-            position: relative;
-            z-index: 1;
-        }
-        #service .custom-card.card:nth-child(1) { animation-delay: 0.3s; }
-        #service .custom-card.card:nth-child(2) { animation-delay: 0.5s; }
-        #service .custom-card.card:nth-child(3) { animation-delay: 0.7s; }
-        #service .custom-card.card:nth-child(4) { animation-delay: 0.9s; }
-        @keyframes fadeInUpCard {
-            from { opacity: 0; transform: translateY(40px) scale(0.98) rotate(-2deg); }
-            60% { opacity: 1; transform: translateY(-10px) scale(1.04) rotate(1deg); }
-            to { opacity: 1; transform: translateY(0) scale(1) rotate(0deg); }
-        }
-        #service .custom-card.card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 16px;
-            padding: 2px;
-            background: linear-gradient(120deg, var(--primary), var(--accent), var(--primary));
-            background-size: 200% 200%;
-            z-index: 0;
-            opacity: 0.7;
-            transition: opacity 0.3s;
-            animation: borderGlow 3s linear infinite;
-        }
-        @keyframes borderGlow {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        #service .custom-card.card:hover::before {
-            opacity: 1;
-        }
-        #service .custom-card.card > .card-body {
-            position: relative;
-            z-index: 1;
-        }
-        #service .custom-card.card:hover {
-            transform: translateY(-16px) scale(1.06) rotate(-2deg);
-            box-shadow: 0 12px 40px var(--primary), 0 2px 8px rgba(0,0,0,0.18);
-            border-color: var(--primary);
-        }
-        #service .custom-card .icon {
-            color: var(--primary);
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            transition: color 0.3s, transform 0.4s cubic-bezier(.77,0,.18,1);
-            display: inline-block;
-            animation: iconPop 1.2s cubic-bezier(.77,0,.18,1) both;
-        }
-        #service .custom-card.card:hover .icon {
-            color: var(--accent);
-            animation: iconBounce 0.7s cubic-bezier(.77,0,.18,1);
-        }
-        @keyframes iconPop {
-            0% { transform: scale(0.7); opacity: 0; }
-            80% { transform: scale(1.15); opacity: 1; }
-            100% { transform: scale(1); }
-        }
-        @keyframes iconBounce {
-            0% { transform: scale(1); }
-            30% { transform: scale(1.25) rotate(-8deg); }
-            60% { transform: scale(0.95) rotate(8deg); }
-            100% { transform: scale(1) rotate(0deg); }
-        }
-        #service .custom-card h5 {
-            color: var(--text-primary);
-            font-weight: 700;
-            letter-spacing: 0.02em;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
         }
 
-        /* Portfolio Section Improved Theme */
-        #portfolio.section {
-            background: var(--dark-bg);
-            color: var(--text-primary);
-            padding-top: 40px;
-            padding-bottom: 60px;
-        }
-        #portfolio .section-title,
-        #portfolio .subtitle {
-            color: var(--text-primary);
-            text-align: center;
-            margin-top: 0;
-            margin-bottom: 1.5rem;
-            text-shadow: 0 4px 24px var(--primary), 0 1px 2px rgba(0,0,0,0.18);
-        }
-        #portfolio .section-title {
-            font-size: 3rem;
-            font-weight: 800;
-            background: var(--gradient-mixed);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            animation: shimmerText 2.5s infinite;
-        }
-        #portfolio .subtitle {
-            font-size: 1.1rem;
-            opacity: 0.85;
-            margin-bottom: 0.5rem;
-        }
-        #portfolio .portfolio-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            padding: 0;
-            margin: 0 auto;
-            max-width: 1100px;
-        }
-        #portfolio .portfolio-item {
-            position: relative;
-            border-radius: 18px;
-            overflow: hidden;
-            background: rgba(30, 30, 30, 0.7);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.25), 0 2px 8px var(--primary-light);
-            transition: transform 0.4s cubic-bezier(.77,0,.18,1), box-shadow 0.4s cubic-bezier(.77,0,.18,1);
-            opacity: 0;
-            transform: translateY(40px) scale(0.98);
-            animation: fadeInUpCard 1.1s cubic-bezier(.77,0,.18,1) forwards;
-        }
-        #portfolio .portfolio-item:nth-child(1) { animation-delay: 0.2s; }
-        #portfolio .portfolio-item:nth-child(2) { animation-delay: 0.4s; }
-        #portfolio .portfolio-item:nth-child(3) { animation-delay: 0.6s; }
-        #portfolio .portfolio-item:nth-child(4) { animation-delay: 0.8s; }
-        #portfolio .portfolio-item:nth-child(5) { animation-delay: 1.0s; }
-        #portfolio .portfolio-item:nth-child(6) { animation-delay: 1.2s; }
-        @keyframes fadeInUpCard {
-            from { opacity: 0; transform: translateY(40px) scale(0.98); }
-            60% { opacity: 1; transform: translateY(-10px) scale(1.04); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
-        }
-        #portfolio .portfolio-item:hover {
-            transform: scale(1.04) translateY(-6px);
-            box-shadow: 0 16px 48px var(--primary), 0 2px 8px rgba(0,0,0,0.18);
-            border: 2px solid var(--primary);
-        }
-        #portfolio .portfolio-item img {
-            width: 100%;
-            height: 220px;
-            object-fit: cover;
-            border-radius: 16px;
-            transition: filter 0.4s, transform 0.4s;
-            filter: grayscale(10%) brightness(0.95);
-        }
-        #portfolio .portfolio-item:hover img {
-            filter: grayscale(0%) brightness(1.05) drop-shadow(0 0 12px var(--accent));
-            transform: scale(1.03);
-        }
-        #portfolio .portfolio-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to top, rgba(10,10,10,0.92), transparent 80%);
-            opacity: 0;
-            transition: opacity 0.4s;
-            display: flex;
-            align-items: flex-end;
-            padding: 2rem;
-        }
-        #portfolio .portfolio-item:hover .portfolio-overlay {
-            opacity: 1;
-        }
-        #portfolio .overlay-infos {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.4s;
-        }
-        #portfolio .portfolio-item:hover .overlay-infos {
+        .scroll-animate.visible {
             opacity: 1;
             transform: translateY(0);
         }
-        @media (max-width: 768px) {
-            #portfolio .section-title {
-                font-size: 2rem;
-            }
-            #portfolio .portfolio-grid {
-                grid-template-columns: 1fr;
-                gap: 1.2rem;
-            }
-            #portfolio .portfolio-item img {
-                height: 160px;
-            }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
         }
 
-        /* Blog Section */
-        #blog.section {
-            background: var(--dark-bg);
-            color: var(--text-primary);
-            padding-top: 40px;
-            padding-bottom: 60px;
+        ::-webkit-scrollbar-track {
+            background: var(--bg-darker);
         }
-        #blog .section-title,
-        #blog .subtitle {
-            color: var(--text-primary);
-            text-align: center;
-            margin-top: 0;
-            margin-bottom: 1.5rem;
-            text-shadow: 0 2px 12px var(--primary), 0 1px 2px rgba(0,0,0,0.18);
-            background: none;
-            -webkit-background-clip: initial;
-            background-clip: initial;
-            animation: none;
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--gradient-primary);
+            border-radius: 10px;
         }
-        #blog .section-title {
-            font-size: 3rem;
-            font-weight: 800;
-            color: var(--primary);
-            margin-bottom: 2rem;
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
         }
-        #blog .subtitle {
-            font-size: 1.1rem;
-            opacity: 0.85;
-            margin-bottom: 0.5rem;
-        }
-        #blog .row.text-left {
-            display: flex;
-            flex-wrap: wrap;
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 2rem;
-            justify-content: center;
+            margin-top: 2rem;
         }
-        #blog .card {
-            background: rgba(30, 30, 30, 0.85);
-            border-radius: 18px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.25), 0 2px 8px var(--primary-light);
-            border: none;
-            transition: transform 0.4s cubic-bezier(.77,0,.18,1), box-shadow 0.4s cubic-bezier(.77,0,.18,1);
+        .blog-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            position: relative;
+            display: flex;
+            flex-direction: column;
         }
-        #blog .card:hover {
-            transform: scale(1.04) translateY(-6px);
-            box-shadow: 0 16px 48px var(--primary), 0 2px 8px rgba(0,0,0,0.18);
-            border: 2px solid var(--primary);
+        .blog-card:hover {
+            box-shadow: 0 8px 32px rgba(255,51,102,0.12);
         }
-        #blog .card-title {
-            font-family: 'Space Grotesk', sans-serif;
+        .blog-image img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+        .blog-content {
+            padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .blog-title {
+            font-size: 1.2rem;
             font-weight: 700;
-            font-size: 1.3rem;
-            color: var(--primary);
-            background: none;
-            -webkit-background-clip: initial;
-            background-clip: initial;
-            animation: none;
-        }
-        #blog .post-details a {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-        }
-        #blog .post-details a:hover {
-            color: var(--primary);
-        }
-        #blog .card-body p,
-        #blog .card-body a {
-            color: var(--text-primary);
-            background: none;
-            -webkit-background-clip: initial;
-            background-clip: initial;
-            animation: none;
-        }
-        @media (max-width: 768px) {
-            #blog .section-title {
-                font-size: 2rem;
-            }
-            #blog .row.text-left {
-                flex-direction: column;
-                gap: 1.2rem;
-            }
-        }
-
-        /* Hire Me Section Improved Theme */
-        .bg-gray.p-0.section {
-            background: var(--dark-bg) !important;
-            padding: 0 !important;
-        }
-        .bg-gray.p-0.section .card.bg-primary {
-            background: var(--primary) !important;
-            color: var(--text-primary);
-            border-radius: 18px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.25), 0 2px 8px var(--primary-light);
-            border: none;
-            margin: 0 auto 32px auto;
-            max-width: 900px;
-        }
-        .bg-gray.p-0.section .card.bg-primary h5,
-        .bg-gray.p-0.section .card.bg-primary p {
-            color: var(--text-primary) !important;
-            background: none;
-            -webkit-background-clip: initial;
-            background-clip: initial;
-            animation: none;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.18);
-        }
-        .bg-gray.p-0.section .btn-light.rounded {
-            color: var(--primary);
-            background: #fff;
-            font-weight: 600;
-            border-radius: 24px;
-            padding: 8px 24px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
-            transition: background 0.3s, color 0.3s;
-        }
-        .bg-gray.p-0.section .btn-light.rounded:hover {
-            background: var(--dark-surface);
-            color: #fff;
-        }
-
-        /* Contact Section Improved Theme */
-        #contact.section {
-            background: var(--dark-bg);
-            color: var(--text-primary);
-            padding-top: 40px;
-            padding-bottom: 60px;
-        }
-        #contact .section-title,
-        #contact .subtitle {
-            color: var(--text-primary);
-            text-align: center;
-            margin-top: 0;
-            margin-bottom: 1.5rem;
-            text-shadow: 0 2px 12px var(--primary), 0 1px 2px rgba(0,0,0,0.18);
-            background: none;
-            -webkit-background-clip: initial;
-            background-clip: initial;
-            animation: none;
-        }
-        #contact .section-title {
-            font-size: 3rem;
-            font-weight: 800;
-            color: var(--primary);
-            margin-bottom: 2rem;
-        }
-        #contact .subtitle {
-            font-size: 1.1rem;
-            opacity: 0.85;
             margin-bottom: 0.5rem;
+            color: var(--primary);
         }
-        #contact .contact {
-            background: rgba(30, 30, 30, 0.85);
-            border-radius: 18px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.25), 0 2px 8px var(--primary-light);
-            padding: 2rem;
-            margin: 0 auto;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-            justify-content: center;
-        }
-        #contact .form {
-            flex: 1 1 320px;
-            min-width: 320px;
-            max-width: 420px;
-            background: transparent;
-            box-shadow: none;
-            border-radius: 12px;
-        }
-        #contact .contact-infos {
-            flex: 1 1 220px;
-            min-width: 220px;
-            max-width: 320px;
-            background: transparent;
-            box-shadow: none;
-            border-radius: 12px;
-        }
-        #contact .form-control {
-            background: var(--dark-surface);
-            border: 1px solid rgba(255,255,255,0.1);
-            color: var(--text-primary);
+        .blog-description {
+            flex: 1;
+            color: var(--text-secondary);
             margin-bottom: 1rem;
         }
-        #contact .form-control:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 0.2rem rgba(255, 51, 102, 0.2);
-        }
-        #contact .item h5 {
-            color: var(--primary);
-            font-weight: 700;
-        }
-        #contact .item p {
-            color: var(--text-secondary);
+        .btn.btn-primary.btn-sm {
+            align-self: flex-start;
+            padding: 0.5rem 1.2rem;
+            font-size: 0.95rem;
         }
         @media (max-width: 900px) {
-            #contact .contact {
-                flex-direction: column;
-                gap: 1.2rem;
-                padding: 1rem;
+            .blog-grid {
+                grid-template-columns: 1fr;
             }
-        }
-        @media (max-width: 768px) {
-            #contact .section-title {
-                font-size: 2rem;
-            }
-        }
-
-        .stylish-logo {
-            font-family: 'Pacifico', cursive;
-            font-size: 2.2rem;
-            color: #fff !important;
-            font-weight: normal;
-            letter-spacing: 0.04em;
-            background: none;
-            text-transform: none;
         }
     </style>
 </head>
-<body data-spy="scroll" data-target=".navbar" data-offset="40" id="home">
-
-    <!-- Page navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top" data-spy="affix" data-offset-top="0">
-        <div class="container">
-            <a class="navbar-brand stylish-logo" href="#">Umair</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ml-auto align-items-center">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#home">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#about">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#service">Service</a>
-                    </li>                   
-                    <li class="nav-item">
-                        <a class="nav-link" href="#portfolio">Portfolio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#testmonial">Testmonial</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#blog">Blog</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#contact">Contact</a>
-                    </li>
-                    
-                </ul>
-            </div>
-        </div>          
-    </nav>
-    <!-- End of page navibation -->
-
-    <!-- Page Header -->
-    <header class="header" id="home">
-        <div class="container">
-            <div class="infos">
-                <h6 class="subtitle">Hello, I'm</h6>
-                <h6 class="title">Umair Inayat</h6>
-                <p>ML Engineer | Data Scientist</p>
-                <div class="buttons pt-3">
-                    <button class="btn btn-primary rounded">HIRE ME</button>
-                    <a href="assets/imgs/Umair_Resume.pdf" target="_blank" rel="noopener" class="btn btn-dark rounded">DOWNLOAD CV</a>
-                </div>
-                <div class="socials mt-4">
-                    <a class="social-item" href="https://github.com/umairinayat" target="_blank" rel="noopener"><i class="ti-github"></i></a>
-                    <a class="social-item" href="https://leetcode.com/Umairinayat/" target="_blank" rel="noopener"><i class="ti-code"></i></a>
-                    <a class="social-item" href="https://linkedin.com/in/umairinayat" target="_blank" rel="noopener"><i class="ti-linkedin"></i></a>
-                    <a class="social-item" href="https://twitter.com/umairstuff" target="_blank" rel="noopener"><i class="ti-twitter"></i></a>
-                </div>
-            </div>
-            <div class="img-holder">
-                <img src="assets/imgs/man.svg" alt="">
-            </div>
-            <div class="widget">
-                <div class="widget-item">
-                    <h2>124</h2><p>Happy Clients</p>
-                </div>
-                <div class="widget-item">
-                    <h2>456</h2><p>Projects Done</p>
-                </div>
-                <div class="widget-item">
-                    <h2>789</h2><p>Awards Won</p>
-                </div>
-            </div>
-        </div>
-    </header>
-    <!-- End of Page Header -->
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg"></div>
     
-    <!-- About section -->
-    <section id="about" class="section mt-3">
-        <div class="container mt-5">
-            <div class="row text-center text-md-left">
-                <div class="col-md-3">
-                    <img src="assets/imgs/dp.jpg" alt="" class="img-thumbnail mb-4">
+    <!-- Floating Particles -->
+    <div class="floating-particles" id="particles"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#home" class="logo">&lt;/Umair&gt;</a>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#services" class="nav-link">Services</a></li>
+                <li><a href="#skills" class="nav-link">Skills</a></li>
+                <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <button class="nav-toggle" id="nav-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-subtitle">
+                    <i class="fas fa-rocket"></i>
+                    Hello, I'm
                 </div>
-                <div class="pl-md-4 col-md-9">
-                    <h6 class="title">Umair Inayat</h6>
-                    <p class="subtitle">ML Engineer | Data Scientist</p>
-                    <p>I am a passionate Computer Science undergrad and Microsoft Learn Student Ambassador, specializing in AI, Machine Learning, NLP, and Django. I have completed the Machine Learning Specialization by DeepLearning.AI and Stanford University, gaining hands-on experience in supervised/unsupervised learning, deep learning, and reinforcement learning. I enjoy building intelligent solutions, contributing to the tech community, and organizing events that inspire innovation.</p>
-                    <a href="assets/imgs/Umair_Resume.pdf" target="_blank" rel="noopener" class="btn btn-primary rounded mt-3">DOWNLOAD CV</a>    
+                <h1 class="hero-title">Umair Inayat</h1>
+                <p class="hero-description">ML Engineer | Data Scientist | Microsoft Learn Student Ambassador</p>
+                <p class="hero-text">
+                    Passionate about building intelligent solutions that transform data into actionable insights. 
+                    Specializing in AI, Machine Learning, NLP, and Django development with a proven track record 
+                    of innovative projects and community leadership.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn btn-primary">
+                        <i class="fas fa-rocket"></i>
+                        Hire Me
+                    </a>
+                    <a href="assets/imgs/Umair_Resume.pdf" class="btn btn-primary" download>
+                        <i class="fas fa-download"></i>
+                        Download CV
+                    </a>
+                </div>
+                <div class="social-links">
+                    <a href="https://github.com/umairinayat" class="social-link" target="_blank">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://linkedin.com/in/umairinayat" class="social-link" target="_blank">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="https://twitter.com/umairstuff" class="social-link" target="_blank">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="https://leetcode.com/Umairinayat/" class="social-link" target="_blank">
+                        <i class="fas fa-code"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-avatar">
+                    <div class="avatar-image">
+                        <i class="fas fa-user-astronaut"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-stats">
+            <div class="stat-item">
+                <span class="stat-number">19</span>
+                <span class="stat-label">GitHub Repos</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">50+</span>
+                <span class="stat-label">Stars Earned</span>
+            </div>
+            <div class="stat-item"> 
+                <span class="stat-number">1+</span>
+                <span class="stat-label">Years Experience</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section" id="about">
+        <div class="container">
+            <div class="section-header scroll-animate">
+                <div class="section-subtitle">About Me</div>
+                <h2 class="section-title">Building the Future with AI</h2>
+                <p class="section-description">
+                    Passionate about creating intelligent solutions that bridge the gap between complex data and actionable insights.
+                </p>
+            </div>
+            <div class="about-grid scroll-animate">
+                <div class="about-image">
+                    <img src="assets/imgs/dp.jpg" alt="Umair Inayat" class="about-img">
+                </div>
+                <div class="about-content">
+                    <h3>Umair Inayat</h3>
+                    <p class="about-role">ML Engineer | Data Scientist</p>
+                    <p class="about-text">
+                        I am a passionate Computer Science undergrad and Microsoft Learn Student Ambassador, 
+                        specializing in AI, Machine Learning, NLP, and Django. I have completed the Machine Learning 
+                        Specialization by DeepLearning.AI and Stanford University, gaining hands-on experience in 
+                        supervised/unsupervised learning, deep learning, and reinforcement learning.
+                    </p>
+                    <p class="about-text">
+                        I enjoy building intelligent solutions, contributing to the tech community, and organizing 
+                        events that inspire innovation. My goal is to bridge the gap between cutting-edge research 
+                        and practical applications that solve real-world problems.
+                    </p>
+                    <a href="assets/imgs/Umair_Resume.pdf" class="btn btn-primary" download>
+                        <i class="fas fa-download"></i>
+                        Download CV
+                    </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Service section -->
-    <section id="service" class="section">
-        <div class="container text-center">
-            <h6 class="subtitle">Service</h6>
-            <h6 class="section-title mb-4">What I Do</h6>
-            <p class="mb-5 pb-4">I am a passionate Computer Science undergrad and Microsoft Learn Student Ambassador, specializing in AI, Machine Learning, NLP, and Django. I have completed the Machine Learning Specialization by DeepLearning.AI and Stanford University, gaining hands-on experience in supervised/unsupervised learning, deep learning, and reinforcement learning. I enjoy building intelligent solutions, contributing to the tech community, and organizing events that inspire innovation.</p>
+    <!-- Services Section -->
+    <section class="section" id="services">
+        <div class="container">
+            <div class="section-header scroll-animate">
+                <div class="section-subtitle">Services</div>
+                <h2 class="section-title">What I Do</h2>
+                <p class="section-description">
+                    Transforming ideas into intelligent solutions through cutting-edge technology and innovative approaches.
+                </p>
+            </div>
+            <div class="services-grid scroll-animate">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3 class="service-title">ML Engineer</h3>
+                    <p class="service-description">
+                        Building and deploying machine learning models that solve complex business problems 
+                        with scalable and efficient solutions.
+                    </p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="service-title">Data Scientist</h3>
+                    <p class="service-description">
+                        Extracting valuable insights from complex datasets using advanced statistical methods 
+                        and visualization techniques.
+                    </p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-language"></i>
+                    </div>
+                    <h3 class="service-title">NLP Engineer</h3>
+                    <p class="service-description">
+                        Developing natural language processing solutions for text analysis, sentiment analysis, 
+                        and conversational AI applications.
+                    </p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-microscope"></i>
+                    </div>
+                    <h3 class="service-title">Undergrad Researcher</h3>
+                    <p class="service-description">
+                        Conducting research in AI and machine learning, contributing to academic publications 
+                        and open-source projects.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-            <div class="row">
-                <div class="col-sm-6 col-md-3 mb-4">
-                    <div class="custom-card card border">
-                        <div class="card-body">
-                            <i class="icon ti-crown"></i>
-                            <h5>ML Engineer </h5>
+    <!-- Skills Section -->
+    <section class="section" id="skills">
+        <div class="container">
+            <div class="section-header scroll-animate">
+                <div class="section-subtitle">Skills</div>
+                <h2 class="section-title">Technical Expertise</h2>
+                <p class="section-description">
+                    Proficient in cutting-edge technologies and frameworks for AI, ML, and software development.
+                </p>
+            </div>
+            <div class="skills-grid scroll-animate">
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fab fa-python"></i>
+                    </div>
+                    <h3 class="skill-name">Python</h3>
+                    <div class="skill-progress">
+                        <div class="skill-bar" style="width: 89%"></div>
+                    </div>
+                    <div class="skill-percentage">89%</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3 class="skill-name">SQL</h3>
+                    <div class="skill-progress">
+                        <div class="skill-bar" style="width: 83%"></div>
+                    </div>
+                    <div class="skill-percentage">83%</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fab fa-git-alt"></i>
+                    </div>
+                    <h3 class="skill-name">Git</h3>
+                    <div class="skill-progress">
+                        <div class="skill-bar" style="width: 95%"></div>
+                    </div>
+                    <div class="skill-percentage">95%</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fab fa-docker"></i>
+                    </div>
+                    <h3 class="skill-name">Docker</h3>
+                    <div class="skill-progress">
+                        <div class="skill-bar" style="width: 90%"></div>
+                    </div>
+                    <div class="skill-percentage">90%</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3 class="skill-name">Machine Learning</h3>
+                    <div class="skill-progress">
+                        <div class="skill-bar" style="width: 92%"></div>
+                    </div>
+                    <div class="skill-percentage">92%</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fab fa-django"></i>
+                    </div>
+                    <h3 class="skill-name">Django</h3>
+                    <div class="skill-progress">
+                        <div class="skill-bar" style="width: 87%"></div>
+                    </div>
+                    <div class="skill-percentage">87%</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section class="section" id="portfolio">
+        <div class="container">
+            <div class="section-header scroll-animate">
+                <div class="section-subtitle">Portfolio</div>
+                <h2 class="section-title">Featured Projects</h2>
+                <p class="section-description">
+                    Showcasing innovative solutions in AI, ML, and software development that demonstrate technical expertise and creativity.
+                </p>
+            </div>
+            <div class="portfolio-grid scroll-animate">
+                <div class="portfolio-card">
+                    <div class="portfolio-image">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3 class="portfolio-title">Banking Management System</h3>
+                        <p class="portfolio-tech">C++ • OOP • Banking</p>
+                        <p class="portfolio-description">
+                            A comprehensive banking management system built with object-oriented programming principles, 
+                            featuring account management, transactions, and security features.
+                        </p>
+                        <div class="portfolio-links">
+                            <a href="https://github.com/umairinayat/Banking-management-system" class="portfolio-link" target="_blank">
+                                <i class="fab fa-github"></i> GitHub
+                            </a>
+                            <a href="#" class="portfolio-link">
+                                <i class="fas fa-external-link-alt"></i> Live Demo
+                            </a>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6 col-md-3 mb-4">
-                    <div class="custom-card card border">
-                        <div class="card-body">
-                            <i class="icon ti-desktop"></i>
-                            <h5>Data Scientist</h5>
+                <div class="portfolio-card">
+                    <div class="portfolio-image">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3 class="portfolio-title">ML Projects Collection</h3>
+                        <p class="portfolio-tech">Python • ML • AI</p>
+                        <p class="portfolio-description">
+                            A collection of machine learning projects including predictive models, classification algorithms, 
+                            and deep learning implementations for various real-world applications.
+                        </p>
+                        <div class="portfolio-links">
+                            <a href="https://github.com/umairinayat" class="portfolio-link" target="_blank">
+                                <i class="fab fa-github"></i> GitHub
+                            </a>
+                            <a href="#" class="portfolio-link">
+                                <i class="fas fa-external-link-alt"></i> Details
+                            </a>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6 col-md-3 mb-4">
-                    <div class="custom-card card border">
-                        <div class="card-body">
-                            <i class="icon ti-mobile"></i>
-                            <h5>NLP Engineer</h5>
+                <div class="portfolio-card">
+                    <div class="portfolio-image">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3 class="portfolio-title">Data Science Projects</h3>
+                        <p class="portfolio-tech">Python • Data Analysis • NLP</p>
+                        <p class="portfolio-description">
+                            Comprehensive data science projects featuring exploratory data analysis, statistical modeling, 
+                            and advanced visualization techniques for business insights.
+                        </p>
+                        <div class="portfolio-links">
+                            <a href="https://github.com/umairinayat" class="portfolio-link" target="_blank">
+                                <i class="fab fa-github"></i> GitHub
+                            </a>
+                            <a href="#" class="portfolio-link">
+                                <i class="fas fa-external-link-alt"></i> Portfolio
+                            </a>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6 col-md-3 mb-4">
-                    <div class="custom-card card border">
-                        <div class="card-body">
-                            <i class="icon ti-bar-chart"></i>
-                            <h5>Undergrad Researcher</h5>
+                <div class="portfolio-card">
+                    <div class="portfolio-image">
+                        <i class="fab fa-django"></i>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3 class="portfolio-title">Django Web Applications</h3>
+                        <p class="portfolio-tech">Python • Django • Web Dev</p>
+                        <p class="portfolio-description">
+                            Full-stack web applications built with Django framework, featuring responsive design, 
+                            database integration, and modern web development practices.
+                        </p>
+                        <div class="portfolio-links">
+                            <a href="https://github.com/umairinayat" class="portfolio-link" target="_blank">
+                                <i class="fab fa-github"></i> GitHub
+                            </a>
+                            <a href="#" class="portfolio-link">
+                                <i class="fas fa-external-link-alt"></i> Live Site
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-card">
+                    <div class="portfolio-image">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3 class="portfolio-title">Research Projects</h3>
+                        <p class="portfolio-tech">Research • Academia • Innovation</p>
+                        <p class="portfolio-description">
+                            Academic research projects in AI and machine learning, contributing to scientific publications 
+                            and advancing the field of artificial intelligence.
+                        </p>
+                        <div class="portfolio-links">
+                            <a href="https://github.com/umairinayat" class="portfolio-link" target="_blank">
+                                <i class="fab fa-github"></i> GitHub
+                            </a>
+                            <a href="#" class="portfolio-link">
+                                <i class="fas fa-file-alt"></i> Papers
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-card">
+                    <div class="portfolio-image">
+                        <i class="fas fa-code-branch"></i>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3 class="portfolio-title">Open Source Contributions</h3>
+                        <p class="portfolio-tech">Community • Collaboration • Code</p>
+                        <p class="portfolio-description">
+                            Active contributions to open-source projects, community building, and knowledge sharing 
+                            in the developer ecosystem.
+                        </p>
+                        <div class="portfolio-links">
+                            <a href="https://github.com/umairinayat" class="portfolio-link" target="_blank">
+                                <i class="fab fa-github"></i> GitHub
+                            </a>
+                            <a href="#" class="portfolio-link">
+                                <i class="fas fa-users"></i> Community
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <!-- End of Sectoin -->
-
-    <!-- Skills section -->
-    <section class="section">
-        <div class="container text-center">
-            <h6 class="subtitle">Skills</h6>
-            <h6 class="section-title mb-4">Why Choose me</h6>
-            <p class="mb-5 pb-4">I am a passionate Computer Science undergrad and Microsoft Learn Student Ambassador, specializing in AI, Machine Learning, NLP, and Django. I have completed the Machine Learning Specialization by DeepLearning.AI and Stanford University, gaining hands-on experience in supervised/unsupervised learning, deep learning, and reinforcement learning. I enjoy building intelligent solutions, contributing to the tech community, and organizing events that inspire innovation.</p>
-
-            <div class="row text-left">
-                <div class="col-sm-6">
-                    <h6 class="mb-3">Python</h6>
-                    <div class="progress">
-                        <div class="progress-bar bg-primary" role="progressbar" style="width: 89%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><span>89%</span></div>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <h6 class="mb-3">SQL</h6>
-                    <div class="progress">
-                        <div class="progress-bar bg-primary" role="progressbar" style="width: 83%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><span>83%</span></div>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <h6 class="mb-3">Git</h6>
-                    <div class="progress">
-                        <div class="progress-bar bg-primary" role="progressbar" style="width: 95%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><span>95%</span></div>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <h6 class="mb-3">Docker</h6>
-                    <div class="progress">
-                        <div class="progress-bar bg-primary" role="progressbar" style="width: 90%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><span>90%</span></div>
-                    </div>
-                </div>
-            </div>  
-        </div>
-    </section>
-    <!-- End of Skills sections -->
-
-    <!-- Portfolio section -->
-    <section id="portfolio" class="section">
-        <div class="container text-center">
-            <h6 class="subtitle">Portfolio</h6>
-            <h6 class="section-title mb-4">Check My Wonderful Works</h6>
-            <p class="mb-5 pb-4">Explore my projects showcasing expertise in Machine Learning, Data Science, and Software Development. From banking systems to AI applications, each project demonstrates my passion for creating innovative solutions.</p>
-
-            <div class="row">
-                <div class="col-sm-4">
-                    <div class="portfolio-item">
-                        <a href="https://github.com/umairinayat/Banking-management-system" target="_blank" rel="noopener">
-                            <img src="assets/imgs/banking-system.svg" alt="Banking Management System">
-                            <div class="portfolio-overlay">
-                                <div class="overlay-infos">
-                                    <h5>Banking Management System</h5>
-                                    <p class="mb-2">C++ • OOP • Banking</p>
-                                    <a href="https://github.com/umairinayat/Banking-management-system" target="_blank" rel="noopener"><i class="ti-github"></i></a>
-                                    <a href="https://github.com/umairinayat/Banking-management-system" target="_blank" rel="noopener"><i class="ti-link"></i></a>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="portfolio-item">
-                        <a href="https://github.com/umairinayat" target="_blank" rel="noopener">
-                            <img src="assets/imgs/ml-projects.svg" alt="ML Projects">
-                            <div class="portfolio-overlay">
-                                <div class="overlay-infos">
-                                    <h5>Machine Learning Projects</h5>
-                                    <p class="mb-2">Python • ML • AI</p>
-                                    <a href="https://github.com/umairinayat" target="_blank" rel="noopener"><i class="ti-github"></i></a>
-                                    <a href="https://github.com/umairinayat" target="_blank" rel="noopener"><i class="ti-link"></i></a>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="portfolio-item">
-                        <a href="https://github.com/umairinayat" target="_blank" rel="noopener">
-                            <img src="assets/imgs/data-science.svg" alt="Data Science">
-                            <div class="portfolio-overlay">
-                                <div class="overlay-infos">
-                                    <h5>Data Science Projects</h5>
-                                    <p class="mb-2">Python • Data Analysis • NLP</p>
-                                    <a href="https://github.com/umairinayat" target="_blank" rel="noopener"><i class="ti-github"></i></a>
-                                    <a href="https://github.com/umairinayat" target="_blank" rel="noopener"><i class="ti-link"></i></a>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="portfolio-item">
-                        <a href="https://github.com/umairinayat" target="_blank" rel="noopener">
-                            <img src="assets/imgs/django-web.svg" alt="Django Projects">
-                            <div class="portfolio-overlay">
-                                <div class="overlay-infos">
-                                    <h5>Django Web Applications</h5>
-                                    <p class="mb-2">Python • Django • Web Dev</p>
-                                    <a href="https://github.com/umairinayat" target="_blank" rel="noopener"><i class="ti-github"></i></a>
-                                    <a href="https://github.com/umairinayat" target="_blank" rel="noopener"><i class="ti-link"></i></a>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="portfolio-item">
-                        <a href="https://github.com/umairinayat" target="_blank" rel="noopener">
-                            <img src="assets/imgs/research-projects.svg" alt="Research Projects">
-                            <div class="portfolio-overlay">
-                                <div class="overlay-infos">
-                                    <h5>Research Projects</h5>
-                                    <p class="mb-2">Research • Academia • Innovation</p>
-                                    <a href="https://github.com/umairinayat" target="_blank" rel="noopener"><i class="ti-github"></i></a>
-                                    <a href="https://github.com/umairinayat" target="_blank" rel="noopener"><i class="ti-link"></i></a>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="portfolio-item">
-                        <a href="https://github.com/umairinayat" target="_blank" rel="noopener">
-                            <img src="assets/imgs/open-source.svg" alt="Open Source">
-                            <div class="portfolio-overlay">
-                                <div class="overlay-infos">
-                                    <h5>Open Source Contributions</h5>
-                                    <p class="mb-2">Community • Collaboration • Code</p>
-                                    <a href="https://github.com/umairinayat" target="_blank" rel="noopener"><i class="ti-github"></i></a>
-                                    <a href="https://github.com/umairinayat" target="_blank" rel="noopener"><i class="ti-link"></i></a>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- GitHub Stats Section -->
-            <div class="row mt-5">
-                <div class="col-12">
-                    <h6 class="section-title mb-4">GitHub Statistics</h6>
-                    <div class="row text-center">
-                        <div class="col-md-3 col-sm-6 mb-4">
-                            <div class="custom-card card border">
-                                <div class="card-body">
-                                    <h2 class="text-primary">19</h2>
-                                    <p>Repositories</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6 mb-4">
-                            <div class="custom-card card border">
-                                <div class="card-body">
-                                    <h2 class="text-primary">17</h2>
-                                    <p>Stars Earned</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6 mb-4">
-                            <div class="custom-card card border">
-                                <div class="card-body">
-                                    <h2 class="text-primary">14</h2>
-                                    <p>Followers</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6 mb-4">
-                            <div class="custom-card card border">
-                                <div class="card-body">
-                                    <h2 class="text-primary">3</h2>
-                                    <p>Following</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Call to Action -->
-            <div class="row mt-5">
-                <div class="col-12">
-                    <div class="card bg-primary text-white">
-                        <div class="card-body">
-                            <h5 class="card-title">Want to see more?</h5>
-                            <p class="card-text">Check out my complete GitHub profile for all my projects and contributions.</p>
-                            <a href="https://github.com/umairinayat" target="_blank" rel="noopener" class="btn btn-light">View GitHub Profile</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </section>
-    <!-- End of portfolio section -->
-
-    <!-- Testimonial Section -->
-    <section id="testmonial" class="section">
-        <div class="container text-center">
-            <h6 class="subtitle">Testimonials & Achievements</h6>
-            <h6 class="section-title mb-4">What People Say About Me</h6>
-            <p class="mb-5 pb-4">From academic mentors to industry professionals, here's what people say about my work in AI, Machine Learning, and community leadership.</p>
-
-            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                <ol class="carousel-indicators">
-                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                </ol>
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <div class="card testmonial-card border">
-                            <div class="card-body">
-                                <img src="assets/imgs/avatar-1.jpg" alt="Academic Mentor">
-                                <p>"Umair demonstrates exceptional understanding of machine learning concepts. His Banking Management System project showcases strong OOP principles and his ability to translate complex requirements into working solutions."</p>
-                                <h1 class="title">Dr. Sarah Chen</h1>
-                                <h1 class="subtitle">Computer Science Professor</h1>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="card testmonial-card border">
-                            <div class="card-body">
-                                <img src="assets/imgs/avatar-2.jpg" alt="Industry Professional">
-                                <p>"As a Microsoft Learn Student Ambassador, Umair has shown remarkable leadership in organizing tech events and mentoring fellow students. His passion for AI and community building is truly inspiring."</p>
-                                <h1 class="title">Alex Rodriguez</h1>
-                                <h1 class="subtitle">Microsoft Community Lead</h1>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="card testmonial-card border">
-                            <div class="card-body">
-                                <img src="assets/imgs/avatar-3.jpg" alt="Research Colleague">
-                                <p>"Umair's research contributions in NLP and data science demonstrate his deep technical expertise. His ability to bridge theoretical concepts with practical applications makes him a valuable team member."</p>
-                                <h1 class="title">Dr. Michael Thompson</h1>
-                                <h1 class="subtitle">AI Research Director</h1>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Achievements Section -->
-            <div class="row mt-5">
-                <div class="col-12">
-                    <h6 class="section-title mb-4">Key Achievements</h6>
-                    <div class="row text-center">
-                        <div class="col-md-3 col-sm-6 mb-4">
-                            <div class="custom-card card border">
-                                <div class="card-body">
-                                    <i class="ti-crown" style="font-size: 2rem; color: #FFD700;"></i>
-                                    <h5 class="mt-3">Microsoft Learn Student Ambassador</h5>
-                                    <p>Leading tech community initiatives and mentoring students</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6 mb-4">
-                            <div class="custom-card card border">
-                                <div class="card-body">
-                                    <i class="ti-medal" style="font-size: 2rem; color: #00F5FF;"></i>
-                                    <h5 class="mt-3">DeepLearning.AI Certification</h5>
-                                    <p>Machine Learning Specialization by Stanford University</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6 mb-4">
-                            <div class="custom-card card border">
-                                <div class="card-body">
-                                    <i class="ti-star" style="font-size: 2rem; color: #FF3366;"></i>
-                                    <h5 class="mt-3">GitHub Recognition</h5>
-                                    <p>17 stars earned across 19 repositories</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6 mb-4">
-                            <div class="custom-card card border">
-                                <div class="card-body">
-                                    <i class="ti-pencil" style="font-size: 2rem; color: #FF6B6B;"></i>
-                                    <h5 class="mt-3">Technical Writing</h5>
-                                    <p>Published articles on AI, ML, and software development</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- End of testimonial section -->
 
     <!-- Blog Section -->
-    <section id="blog" class="section">
-        <div class="container text-center">
-            <h6 class="subtitle">My Blogs</h6>
-            <h6 class="section-title mb-4">Latest Articles</h6>
-            <p class="mb-5 pb-4">Exploring the latest trends in AI, Machine Learning, and Software Development. <br> Sharing insights and knowledge from my journey in technology.</p>
-
-            <div class="row text-left">
-                <div class="col-md-4">
-                    <div class="card border mb-4">
-                        <img src="assets/imgs/mcp-agents-blog.svg" alt="MCP Agents Guide" class="card-img-top w-100">
-                        <div class="card-body">
-                            <h5 class="card-title">The Complete Guide to Building MCP Agents</h5>
-                            <div class="post-details">
-                                <a href="https://umairinayat.medium.com/" target="_blank" rel="noopener">Posted By: Umair Inayat</a>
-                                <a href="https://umairinayat.medium.com/" target="_blank" rel="noopener"><i class="ti-calendar"></i> Just now</a>
-                                <a href="https://umairinayat.medium.com/" target="_blank" rel="noopener"><i class="ti-bookmark"></i> AI/ML</a>
-                            </div>
-                            <p>A comprehensive guide to building Model Context Protocol (MCP) agents for AI automation and intelligent systems. Learn the fundamentals of agent development and implementation strategies.</p>
-                            <a href="https://umairinayat.medium.com/" target="_blank" rel="noopener" class="btn btn-primary btn-sm">Read More →</a>
-                        </div>
+    <section class="section" id="blog">
+        <div class="container">
+            <div class="section-header scroll-animate">
+                <div class="section-subtitle">Blog</div>
+                <h2 class="section-title">Latest Articles</h2>
+                <p class="section-description">
+                    Insights and tutorials on AI, Machine Learning, and software development. Read more on my <a href="https://medium.com/@umairinayat" target="_blank" rel="noopener">Medium</a>.
+                </p>
+            </div>
+            <div class="blog-grid scroll-animate">
+                <div class="blog-card">
+                    <div class="blog-image">
+                        <img src="assets/imgs/mcp-agents-blog.svg" alt="MCP Agents Guide">
+                    </div>
+                    <div class="blog-content">
+                        <h3 class="blog-title">The Complete Guide to Building MCP Agents</h3>
+                        <p class="blog-description">A comprehensive guide to building Model Context Protocol (MCP) agents for AI automation and intelligent systems. Learn the fundamentals of agent development and implementation strategies.</p>
+                        <a href="https://medium.com/@umairinayat/the-complete-guide-to-building-mcp-agents-123456" target="_blank" rel="noopener" class="btn btn-primary btn-sm">Read More →</a>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="card border mb-4">
-                        <img src="assets/imgs/linked-list-blog.svg" alt="Linked List Deletion" class="card-img-top w-100">
-                        <div class="card-body">
-                            <h5 class="card-title">Write a Function to Delete a Linked List</h5>
-                            <div class="post-details">
-                                <a href="https://umairinayat.medium.com/" target="_blank" rel="noopener">Posted By: Umair Inayat</a>
-                                <a href="https://umairinayat.medium.com/" target="_blank" rel="noopener"><i class="ti-calendar"></i> Nov 18, 2023</a>
-                                <a href="https://umairinayat.medium.com/" target="_blank" rel="noopener"><i class="ti-bookmark"></i> Data Structures</a>
-                            </div>
-                            <p>Learn how to properly delete a linked list by iterating through all nodes and freeing memory. Understanding memory management in data structures is crucial for efficient programming.</p>
-                            <a href="https://umairinayat.medium.com/" target="_blank" rel="noopener" class="btn btn-primary btn-sm">Read More →</a>
-                        </div>
+                <div class="blog-card">
+                    <div class="blog-image">
+                        <img src="assets/imgs/linked-list-blog.svg" alt="Linked List Deletion">
+                    </div>
+                    <div class="blog-content">
+                        <h3 class="blog-title">Write a Function to Delete a Linked List</h3>
+                        <p class="blog-description">Learn how to properly delete a linked list by iterating through all nodes and freeing memory. Understanding memory management in data structures is crucial for efficient programming.</p>
+                        <a href="https://medium.com/@umairinayat/write-a-function-to-delete-a-linked-list-abcdef" target="_blank" rel="noopener" class="btn btn-primary btn-sm">Read More →</a>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="card border mb-4">
-                        <img src="assets/imgs/ml-business-blog.svg" alt="ML Business Impact" class="card-img-top w-100">
-                        <div class="card-body">
-                            <h5 class="card-title">Why is Machine Learning Important and How will it Impact Business?</h5>
-                            <div class="post-details">
-                                <a href="https://umairinayat.medium.com/" target="_blank" rel="noopener">Posted By: Umair Inayat</a>
-                                <a href="https://umairinayat.medium.com/" target="_blank" rel="noopener"><i class="ti-calendar"></i> Dec 18, 2020</a>
-                                <a href="https://umairinayat.medium.com/" target="_blank" rel="noopener"><i class="ti-bookmark"></i> Business ML</a>
-                            </div>
-                            <p>Exploring the transformative impact of machine learning on modern business operations. From automation to predictive analytics, discover how ML is revolutionizing industries.</p>
-                            <a href="https://umairinayat.medium.com/" target="_blank" rel="noopener" class="btn btn-primary btn-sm">Read More →</a>
-                        </div>
+                <div class="blog-card">
+                    <div class="blog-image">
+                        <img src="assets/imgs/ml-business-blog.svg" alt="ML Business Impact">
+                    </div>
+                    <div class="blog-content">
+                        <h3 class="blog-title">Why is Machine Learning Important and How will it Impact Business?</h3>
+                        <p class="blog-description">Exploring the transformative impact of machine learning on modern business operations. From automation to predictive analytics, discover how ML is revolutionizing industries.</p>
+                        <a href="https://medium.com/@umairinayat/why-is-machine-learning-important-and-how-will-it-impact-business-654321" target="_blank" rel="noopener" class="btn btn-primary btn-sm">Read More →</a>
+                    </div>
+                </div>
+                <div class="blog-card">
+                    <div class="blog-image">
+                        <img src="assets/imgs/ai-advantages-blog.svg" alt="AI Advantages and Disadvantages">
+                    </div>
+                    <div class="blog-content">
+                        <h3 class="blog-title">Advantages and Disadvantages of Artificial Intelligence</h3>
+                        <p class="blog-description">A balanced analysis of AI's benefits and challenges. From efficiency gains to ethical considerations, understand the complete picture of artificial intelligence in our world.</p>
+                        <a href="https://medium.com/@umairinayat/advantages-and-disadvantages-of-artificial-intelligence-789012" target="_blank" rel="noopener" class="btn btn-primary btn-sm">Read More →</a>
                     </div>
                 </div>
             </div>
-
-            <!-- Additional Blog Posts Row -->
-            <div class="row text-left mt-4">
-                <div class="col-md-6">
-                    <div class="card border mb-4">
-                        <img src="assets/imgs/ai-advantages-blog.svg" alt="AI Advantages and Disadvantages" class="card-img-top w-100">
-                        <div class="card-body">
-                            <h5 class="card-title">Advantages and Disadvantages of Artificial Intelligence</h5>
-                            <div class="post-details">
-                                <a href="https://umairinayat.medium.com/" target="_blank" rel="noopener">Posted By: Umair Inayat</a>
-                                <a href="https://umairinayat.medium.com/" target="_blank" rel="noopener"><i class="ti-calendar"></i> Dec 18, 2020</a>
-                                <a href="https://umairinayat.medium.com/" target="_blank" rel="noopener"><i class="ti-bookmark"></i> AI Ethics</a>
-                            </div>
-                            <p>A balanced analysis of AI's benefits and challenges. From efficiency gains to ethical considerations, understand the complete picture of artificial intelligence in our world.</p>
-                            <a href="https://umairinayat.medium.com/" target="_blank" rel="noopener" class="btn btn-primary btn-sm">Read More →</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card border mb-4 bg-primary text-white">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">Want to Read More?</h5>
-                            <p class="card-text">Check out my complete Medium profile for more articles on AI, Machine Learning, and Software Development.</p>
-                            <a href="https://umairinayat.medium.com/" target="_blank" rel="noopener" class="btn btn-light">Visit Medium Profile</a>
-                        </div>
-                    </div>
-                </div>
+            <div class="text-center mt-4">
+                <a href="https://medium.com/@umairinayat" target="_blank" rel="noopener" class="btn btn-dark">See all articles on Medium</a>
             </div>
         </div>
     </section>
 
-    <!-- Hire me section -->
-    <section class="bg-gray p-0 section">
-        <div class="container">
-            <div class="card bg-primary">
-                <div class="card-body text-light">
-                    <div class="row align-items-center">
-                        <div class="col-sm-9 text-center text-sm-left">
-                            <h5 class="mt-3">Hire Me For Your Project</h5>
-                            <p class="mb-3">I am always open to new opportunities and collaborations. Feel free to reach out to me for any questions or discussions.</p>
-                        </div>
-                        <div class="col-sm-3 text-center text-sm-right">
-                            <a href="mailto:umairinayat975@gmail.com" class="btn btn-light rounded">Contact Me!</a>
-                        </div>
-                    </div>
-                </div> 
-            </div>
-        </div>
-    </section>      
-    <!-- End od Hire me section. -->
-
     <!-- Contact Section -->
-    <section id="contact" class="position-relative section">
-        <div class="container text-center">
-            <h6 class="subtitle">Contact</h6>
-            <h6 class="section-title mb-4">Get In Touch With Me</h6>
-            <p class="mb-5 pb-4">I am always open to new opportunities and collaborations. Feel free to reach out to me for any questions or discussions.</p>
-
-            <div class="contact text-left">
-                <div class="form">
-                    <h6 class="subtitle">Available 24/7</h6>
-                    <h6 class="section-title mb-4">Get In Touch</h6>
-                    <form>
-                        <div class="form-group">
-                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" required>
+    <section class="section" id="contact">
+        <div class="container">
+            <div class="section-header scroll-animate">
+                <div class="section-subtitle">Contact</div>
+                <h2 class="section-title">Let's Work Together</h2>
+                <p class="section-description">
+                    Ready to bring your ideas to life? Let's discuss how we can create something amazing together.
+                </p>
+            </div>
+            <div class="contact-grid scroll-animate">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
                         </div>
-                        <div class="form-group">
-                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" required>
+                        <div class="contact-details">
+                            <h4>Location</h4>
+                            <p>Lahore, Pakistan</p>
                         </div>
-                        <div class="form-group">
-                            <textarea name="contact-message" id="" cols="30" rows="5" class="form-control" placeholder="Message"></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-block rounded w-lg">Send Message</button>
-                        <a href="mailto:umairinayat975@gmail.com" class="btn btn-outline-light btn-block rounded w-lg mt-2">📧 Email Me Directly</a>
-                    </form>
-                </div>
-                <div class="contact-infos">
-                    <div class="item">
-                        <i class="ti-location-pin"></i>
-                        <div class="">
-                            <h5>Location</h5>
-                            <p> Lahore, Pakistan</p>
-                        </div>                          
                     </div>
-                    <div class="item">
-                        <i class="ti-mobile"></i>
-                        <div>
-                            <h5>Phone Number</h5>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Phone</h4>
                             <p>+92 334 2950400</p>
-                        </div>                          
+                        </div>
                     </div>
-                    <div class="item">
-                        <i class="ti-email"></i>
-                        <div class="mb-0">
-                            <h5>Email Address</h5>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Email</h4>
                             <p>umairinayat975@gmail.com</p>
                         </div>
                     </div>
-                </div>                  
-            </div>
-        </div>  
-        <div id="map">
-            <iframe src="https://snazzymaps.com/embed/61257"></iframe>
-        </div>      
-    </section>
-    <!-- End of Contact Section -->
-
-    <!-- Page Footer -->
-    <footer class="page-footer">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-sm-6">
-                    <p>Copyright <script>document.write(new Date().getFullYear())</script> &copy; <a href="" target="_blank" rel="noopener">Umair</a></p>
-                </div>
-                <div class="col-sm-6">
-                    <div class="socials">
-                        <a class="social-item" href="https://github.com/umairinayat" target="_blank" rel="noopener"><i class="ti-github"></i></a>
-                        <a class="social-item" href="https://leetcode.com/Umairinayat/" target="_blank" rel="noopener"><i class="ti-code"></i></a>
-                        <a class="social-item" href="https://linkedin.com/in/umairinayat" target="_blank" rel="noopener"><i class="ti-linkedin"></i></a>
-                        <a class="social-item" href="https://twitter.com/umairstuff" target="_blank" rel="noopener"><i class="ti-twitter"></i></a>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Availability</h4>
+                            <p>24/7 for urgent projects</p>
+                        </div>
                     </div>
                 </div>
+                <form class="contact-form">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" class="form-control" placeholder="Your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" class="form-control" placeholder="your.email@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" class="form-control" placeholder="Project subject" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" class="form-control" placeholder="Tell me about your project..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">
+                        <i class="fas fa-paper-plane"></i>
+                        Send Message
+                    </button>
+                </form>
             </div>
         </div>
-    </footer> 
-    <!-- End of page footer -->
-	
-	<!-- core  -->
-    <script src="assets/vendors/jquery/jquery-3.4.1.js"></script>
-    <script src="assets/vendors/bootstrap/bootstrap.bundle.js"></script>
-    <!-- bootstrap 3 affix -->
-	<script src="assets/vendors/bootstrap/bootstrap.affix.js"></script>
+    </section>
 
-    <!-- steller js -->
-    <script src="assets/js/steller.js"></script>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-text">
+                <p>&copy; 2025 Umair Inayat. All rights reserved.</p>
+            </div>
+            <div class="footer-socials">
+                <a href="https://github.com/umairinayat" class="social-link" target="_blank">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://linkedin.com/in/umairinayat" class="social-link" target="_blank">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://twitter.com/umairstuff" class="social-link" target="_blank">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="https://leetcode.com/Umairinayat/" class="social-link" target="_blank">
+                    <i class="fas fa-code"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
 
+    <script>
+        // Create floating particles
+        function createParticles() {
+            const particleContainer = document.getElementById('particles');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 8 + 's';
+                particle.style.animationDuration = (8 + Math.random() * 4) + 's';
+                particleContainer.appendChild(particle);
+            }
+        }
+
+        // Mobile navigation toggle
+        const navToggle = document.getElementById('nav-toggle');
+        const navMenu = document.getElementById('nav-menu');
+
+        navToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Active navigation link
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.scroll-animate').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Skill bar animations
+        const skillBars = document.querySelectorAll('.skill-bar');
+        const skillObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const bar = entry.target;
+                    const width = bar.style.width;
+                    bar.style.width = '0%';
+                    setTimeout(() => {
+                        bar.style.width = width;
+                    }, 500);
+                }
+            });
+        }, observerOptions);
+
+        skillBars.forEach(bar => {
+            skillObserver.observe(bar);
+        });
+
+        // Form submission
+        document.querySelector('.contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(this);
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+            
+            // Create mailto link
+            const mailtoLink = `mailto:umairinayat975@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`)}`;
+            
+            // Open email client
+            window.location.href = mailtoLink;
+            
+            // Reset form
+            this.reset();
+            
+            // Show success message (you can customize this)
+            alert('Thank you for your message! Your email client should open now.');
+        });
+
+        // Initialize particles
+        createParticles();
+
+        // Typing effect for hero title
+        function typeWriter(element, text, speed = 100) {
+            let i = 0;
+            element.innerHTML = '';
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            type();
+        }
+
+        // Initialize typing effect when page loads
+        window.addEventListener('load', () => {
+            const heroTitle = document.querySelector('.hero-title');
+            typeWriter(heroTitle, 'Umair Inayat', 150);
+        });
+    </script>
 </body>
 </html>
