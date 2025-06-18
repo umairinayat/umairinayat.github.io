@@ -1,0 +1,77 @@
+<svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="dataGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF6B6B;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FF3366;stop-opacity:1" />
+    </linearGradient>
+    <filter id="chartGlow">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="400" height="300" fill="#0a0a0a"/>
+  
+  <!-- Bar Chart -->
+  <rect x="80" y="200" width="30" height="60" fill="#00F5FF" filter="url(#chartGlow)"/>
+  <rect x="120" y="180" width="30" height="80" fill="#FF3366" filter="url(#chartGlow)"/>
+  <rect x="160" y="160" width="30" height="100" fill="#00F5FF" filter="url(#chartGlow)"/>
+  <rect x="200" y="140" width="30" height="120" fill="#FF6B6B" filter="url(#chartGlow)"/>
+  <rect x="240" y="120" width="30" height="140" fill="#00F5FF" filter="url(#chartGlow)"/>
+  <rect x="280" y="100" width="30" height="160" fill="#FF3366" filter="url(#chartGlow)"/>
+  <rect x="320" y="80" width="30" height="180" fill="#00F5FF" filter="url(#chartGlow)"/>
+  
+  <!-- Line Chart -->
+  <polyline points="50,220 100,200 150,180 200,160 250,140 300,120 350,100" 
+            fill="none" stroke="#FF6B6B" stroke-width="3" filter="url(#chartGlow)"/>
+  <circle cx="50" cy="220" r="4" fill="#FF6B6B"/>
+  <circle cx="100" cy="200" r="4" fill="#FF6B6B"/>
+  <circle cx="150" cy="180" r="4" fill="#FF6B6B"/>
+  <circle cx="200" cy="160" r="4" fill="#FF6B6B"/>
+  <circle cx="250" cy="140" r="4" fill="#FF6B6B"/>
+  <circle cx="300" cy="120" r="4" fill="#FF6B6B"/>
+  <circle cx="350" cy="100" r="4" fill="#FF6B6B"/>
+  
+  <!-- Pie Chart -->
+  <circle cx="100" cy="80" r="25" fill="none" stroke="#00F5FF" stroke-width="8" stroke-dasharray="20,40"/>
+  <circle cx="100" cy="80" r="25" fill="none" stroke="#FF3366" stroke-width="8" stroke-dasharray="15,40" transform="rotate(72, 100, 80)"/>
+  <circle cx="100" cy="80" r="25" fill="none" stroke="#FF6B6B" stroke-width="8" stroke-dasharray="10,40" transform="rotate(144, 100, 80)"/>
+  
+  <!-- Data Points Scatter -->
+  <circle cx="250" cy="60" r="3" fill="#00F5FF"/>
+  <circle cx="260" cy="50" r="3" fill="#FF3366"/>
+  <circle cx="270" cy="70" r="3" fill="#00F5FF"/>
+  <circle cx="280" cy="40" r="3" fill="#FF6B6B"/>
+  <circle cx="290" cy="80" r="3" fill="#00F5FF"/>
+  <circle cx="300" cy="30" r="3" fill="#FF3366"/>
+  <circle cx="310" cy="90" r="3" fill="#00F5FF"/>
+  <circle cx="320" cy="20" r="3" fill="#FF6B6B"/>
+  <circle cx="330" cy="100" r="3" fill="#00F5FF"/>
+  <circle cx="340" cy="10" r="3" fill="#FF3366"/>
+  
+  <!-- Database Icon -->
+  <ellipse cx="320" cy="200" rx="40" ry="15" fill="url(#dataGradient)" opacity="0.8"/>
+  <rect x="280" y="200" width="80" height="40" fill="url(#dataGradient)" opacity="0.6" rx="5"/>
+  <ellipse cx="320" cy="240" rx="40" ry="15" fill="url(#dataGradient)" opacity="0.8"/>
+  <line x1="300" y1="210" x2="340" y2="210" stroke="#fff" stroke-width="1" opacity="0.8"/>
+  <line x1="300" y1="220" x2="340" y2="220" stroke="#fff" stroke-width="1" opacity="0.8"/>
+  <line x1="300" y1="230" x2="340" y2="230" stroke="#fff" stroke-width="1" opacity="0.8"/>
+  
+  <!-- Analytics Icon -->
+  <rect x="50" y="50" width="60" height="40" fill="url(#dataGradient)" rx="5" opacity="0.8"/>
+  <line x1="60" y1="70" x2="80" y2="60" stroke="#fff" stroke-width="2"/>
+  <line x1="80" y1="60" x2="100" y2="75" stroke="#fff" stroke-width="2"/>
+  <line x1="100" y1="75" x2="110" y2="65" stroke="#fff" stroke-width="2"/>
+  
+  <!-- Python Badge -->
+  <rect x="50" y="250" width="80" height="25" fill="#00F5FF" rx="12"/>
+  <text x="90" y="267" text-anchor="middle" fill="#0a0a0a" font-family="Arial, sans-serif" font-size="10" font-weight="bold">PYTHON</text>
+  
+  <!-- Data Science Badge -->
+  <rect x="270" y="250" width="80" height="25" fill="#FF3366" rx="12"/>
+  <text x="310" y="267" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="10" font-weight="bold">DATA</text>
+</svg> 

@@ -1,0 +1,94 @@
+<svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="researchGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF3366;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FF6B6B;stop-opacity:1" />
+    </linearGradient>
+    <filter id="researchGlow">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="400" height="300" fill="#0a0a0a"/>
+  
+  <!-- Microscope -->
+  <rect x="180" y="120" width="40" height="60" fill="url(#researchGradient)" rx="5" opacity="0.8"/>
+  <circle cx="200" cy="140" r="15" fill="none" stroke="#fff" stroke-width="2" opacity="0.8"/>
+  <rect x="195" y="155" width="10" height="20" fill="#fff" opacity="0.8"/>
+  <circle cx="200" cy="180" r="8" fill="#00F5FF" opacity="0.9"/>
+  
+  <!-- Test Tubes -->
+  <rect x="80" y="160" width="8" height="40" fill="#00F5FF" opacity="0.8" rx="2"/>
+  <rect x="95" y="170" width="8" height="30" fill="#FF3366" opacity="0.8" rx="2"/>
+  <rect x="110" y="165" width="8" height="35" fill="#FF6B6B" opacity="0.8" rx="2"/>
+  <rect x="125" y="175" width="8" height="25" fill="#00F5FF" opacity="0.8" rx="2"/>
+  
+  <!-- Research Papers -->
+  <rect x="280" y="80" width="60" height="80" fill="#fff" opacity="0.1" rx="3"/>
+  <rect x="285" y="85" width="50" height="70" fill="#fff" opacity="0.1" rx="2"/>
+  <line x1="290" y1="95" x2="330" y2="95" stroke="#fff" stroke-width="1" opacity="0.6"/>
+  <line x1="290" y1="105" x2="330" y2="105" stroke="#fff" stroke-width="1" opacity="0.6"/>
+  <line x1="290" y1="115" x2="320" y2="115" stroke="#fff" stroke-width="1" opacity="0.6"/>
+  <line x1="290" y1="125" x2="325" y2="125" stroke="#fff" stroke-width="1" opacity="0.6"/>
+  <line x1="290" y1="135" x2="315" y2="135" stroke="#fff" stroke-width="1" opacity="0.6"/>
+  <line x1="290" y1="145" x2="330" y2="145" stroke="#fff" stroke-width="1" opacity="0.6"/>
+  
+  <!-- DNA Helix -->
+  <path d="M 50 50 Q 80 30 110 50 Q 140 70 170 50 Q 200 30 230 50 Q 260 70 290 50" 
+        fill="none" stroke="#00F5FF" stroke-width="2" opacity="0.8"/>
+  <path d="M 50 70 Q 80 90 110 70 Q 140 50 170 70 Q 200 90 230 70 Q 260 50 290 70" 
+        fill="none" stroke="#FF3366" stroke-width="2" opacity="0.8"/>
+  
+  <!-- DNA Base Pairs -->
+  <line x1="80" y1="30" x2="80" y2="90" stroke="#FF6B6B" stroke-width="1" opacity="0.6"/>
+  <line x1="140" y1="30" x2="140" y2="90" stroke="#FF6B6B" stroke-width="1" opacity="0.6"/>
+  <line x1="200" y1="30" x2="200" y2="90" stroke="#FF6B6B" stroke-width="1" opacity="0.6"/>
+  <line x1="260" y1="30" x2="260" y2="90" stroke="#FF6B6B" stroke-width="1" opacity="0.6"/>
+  
+  <!-- Innovation Lightbulb -->
+  <circle cx="320" cy="200" r="20" fill="url(#researchGradient)" opacity="0.9"/>
+  <path d="M 310 200 Q 320 190 330 200 Q 320 210 310 200" fill="#fff" opacity="0.9"/>
+  <path d="M 315 195 Q 320 190 325 195" fill="#fff" opacity="0.9"/>
+  <path d="M 315 205 Q 320 210 325 205" fill="#fff" opacity="0.9"/>
+  <rect x="315" y="220" width="10" height="15" fill="url(#researchGradient)" opacity="0.8" rx="2"/>
+  
+  <!-- Research Flow Chart -->
+  <rect x="50" y="220" width="60" height="30" fill="#00F5FF" opacity="0.8" rx="5"/>
+  <text x="80" y="240" text-anchor="middle" fill="#0a0a0a" font-family="Arial, sans-serif" font-size="8" font-weight="bold">HYPOTHESIS</text>
+  
+  <rect x="140" y="220" width="60" height="30" fill="#FF3366" opacity="0.8" rx="5"/>
+  <text x="170" y="240" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="8" font-weight="bold">EXPERIMENT</text>
+  
+  <rect x="230" y="220" width="60" height="30" fill="#FF6B6B" opacity="0.8" rx="5"/>
+  <text x="260" y="240" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="8" font-weight="bold">ANALYSIS</text>
+  
+  <!-- Arrows -->
+  <path d="M 110 235 L 140 235" stroke="#fff" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <path d="M 200 235 L 230 235" stroke="#fff" stroke-width="2" marker-end="url(#arrowhead)"/>
+  
+  <!-- Academic Cap -->
+  <path d="M 150 80 L 200 60 L 250 80 L 250 100 L 150 100 Z" fill="url(#researchGradient)" opacity="0.8"/>
+  <rect x="150" y="100" width="100" height="8" fill="url(#researchGradient)" opacity="0.8"/>
+  <line x1="170" y1="108" x2="170" y2="120" stroke="#fff" stroke-width="2" opacity="0.8"/>
+  <line x1="230" y1="108" x2="230" y2="120" stroke="#fff" stroke-width="2" opacity="0.8"/>
+  
+  <!-- Research Badge -->
+  <rect x="50" y="50" width="80" height="25" fill="#00F5FF" rx="12"/>
+  <text x="90" y="67" text-anchor="middle" fill="#0a0a0a" font-family="Arial, sans-serif" font-size="10" font-weight="bold">RESEARCH</text>
+  
+  <!-- Innovation Badge -->
+  <rect x="270" y="50" width="80" height="25" fill="#FF3366" rx="12"/>
+  <text x="310" y="67" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="10" font-weight="bold">INNOVATION</text>
+  
+  <!-- Arrow Marker -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#fff"/>
+    </marker>
+  </defs>
+</svg> 

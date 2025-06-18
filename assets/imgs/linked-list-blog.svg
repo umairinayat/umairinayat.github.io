@@ -1,0 +1,72 @@
+<svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="linkedListGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF3366;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FF6B6B;stop-opacity:1" />
+    </linearGradient>
+    <filter id="linkedListGlow">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="400" height="300" fill="#0a0a0a"/>
+  
+  <!-- Linked List Nodes -->
+  <rect x="80" y="120" width="60" height="40" fill="url(#linkedListGradient)" rx="8" opacity="0.9"/>
+  <text x="110" y="145" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="12" font-weight="bold">A</text>
+  
+  <rect x="180" y="120" width="60" height="40" fill="url(#linkedListGradient)" rx="8" opacity="0.9"/>
+  <text x="210" y="145" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="12" font-weight="bold">B</text>
+  
+  <rect x="280" y="120" width="60" height="40" fill="url(#linkedListGradient)" rx="8" opacity="0.9"/>
+  <text x="310" y="145" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="12" font-weight="bold">C</text>
+  
+  <!-- Connection Arrows -->
+  <path d="M 140 140 L 180 140" stroke="#00F5FF" stroke-width="3" marker-end="url(#arrowhead)"/>
+  <path d="M 240 140 L 280 140" stroke="#00F5FF" stroke-width="3" marker-end="url(#arrowhead)"/>
+  
+  <!-- Head Pointer -->
+  <circle cx="70" cy="140" r="8" fill="#00F5FF" opacity="0.9"/>
+  <text x="70" y="145" text-anchor="middle" fill="#0a0a0a" font-family="Arial, sans-serif" font-size="10" font-weight="bold">H</text>
+  <line x1="78" y1="140" x2="80" y2="140" stroke="#00F5FF" stroke-width="2"/>
+  
+  <!-- Null Pointer -->
+  <text x="350" y="145" fill="#FF6B6B" font-family="Arial, sans-serif" font-size="16" font-weight="bold">NULL</text>
+  <line x1="340" y1="140" x2="350" y2="140" stroke="#FF6B6B" stroke-width="2"/>
+  
+  <!-- Node Structure -->
+  <rect x="50" y="200" width="300" height="60" fill="rgba(255,255,255,0.1)" rx="5"/>
+  <text x="60" y="220" fill="#00F5FF" font-family="monospace" font-size="10">struct Node {</text>
+  <text x="60" y="235" fill="#fff" font-family="monospace" font-size="10">  int data;</text>
+  <text x="60" y="250" fill="#fff" font-family="monospace" font-size="10">  Node* next;</text>
+  <text x="60" y="265" fill="#fff" font-family="monospace" font-size="10">};</text>
+  
+  <!-- Delete Function -->
+  <rect x="50" y="50" width="300" height="40" fill="rgba(255,255,255,0.1)" rx="5"/>
+  <text x="60" y="70" fill="#FF3366" font-family="monospace" font-size="10">void deleteList(Node* head) {</text>
+  <text x="60" y="85" fill="#fff" font-family="monospace" font-size="10">  while (head != NULL) {</text>
+  
+  <!-- Data Structure Badge -->
+  <rect x="50" y="50" width="80" height="25" fill="#FF3366" rx="12"/>
+  <text x="90" y="67" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="10" font-weight="bold">LINKED</text>
+  
+  <!-- List Badge -->
+  <rect x="270" y="50" width="80" height="25" fill="#00F5FF" rx="12"/>
+  <text x="310" y="67" text-anchor="middle" fill="#0a0a0a" font-family="Arial, sans-serif" font-size="10" font-weight="bold">LIST</text>
+  
+  <!-- Arrow Marker -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#00F5FF"/>
+    </marker>
+  </defs>
+  
+  <!-- Memory Management -->
+  <rect x="320" y="80" width="60" height="30" fill="url(#linkedListGradient)" opacity="0.8" rx="5"/>
+  <text x="350" y="100" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="8" font-weight="bold">MEMORY</text>
+</svg> 

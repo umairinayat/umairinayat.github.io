@@ -1,0 +1,82 @@
+<svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="mlGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00F5FF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#33F7FF;stop-opacity:1" />
+    </linearGradient>
+    <filter id="neuralGlow">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="400" height="300" fill="#0a0a0a"/>
+  
+  <!-- Neural Network Nodes -->
+  <circle cx="100" cy="80" r="8" fill="#FF3366" filter="url(#neuralGlow)"/>
+  <circle cx="100" cy="120" r="8" fill="#FF3366" filter="url(#neuralGlow)"/>
+  <circle cx="100" cy="160" r="8" fill="#FF3366" filter="url(#neuralGlow)"/>
+  
+  <circle cx="200" cy="60" r="8" fill="#00F5FF" filter="url(#neuralGlow)"/>
+  <circle cx="200" cy="100" r="8" fill="#00F5FF" filter="url(#neuralGlow)"/>
+  <circle cx="200" cy="140" r="8" fill="#00F5FF" filter="url(#neuralGlow)"/>
+  <circle cx="200" cy="180" r="8" fill="#00F5FF" filter="url(#neuralGlow)"/>
+  
+  <circle cx="300" cy="80" r="8" fill="#FF6B6B" filter="url(#neuralGlow)"/>
+  <circle cx="300" cy="120" r="8" fill="#FF6B6B" filter="url(#neuralGlow)"/>
+  <circle cx="300" cy="160" r="8" fill="#FF6B6B" filter="url(#neuralGlow)"/>
+  
+  <!-- Neural Network Connections -->
+  <line x1="108" y1="80" x2="192" y2="60" stroke="#00F5FF" stroke-width="1" opacity="0.6"/>
+  <line x1="108" y1="80" x2="192" y2="100" stroke="#00F5FF" stroke-width="1" opacity="0.6"/>
+  <line x1="108" y1="80" x2="192" y2="140" stroke="#00F5FF" stroke-width="1" opacity="0.6"/>
+  <line x1="108" y1="120" x2="192" y2="100" stroke="#00F5FF" stroke-width="1" opacity="0.6"/>
+  <line x1="108" y1="120" x2="192" y2="140" stroke="#00F5FF" stroke-width="1" opacity="0.6"/>
+  <line x1="108" y1="120" x2="192" y2="180" stroke="#00F5FF" stroke-width="1" opacity="0.6"/>
+  <line x1="108" y1="160" x2="192" y2="140" stroke="#00F5FF" stroke-width="1" opacity="0.6"/>
+  <line x1="108" y1="160" x2="192" y2="180" stroke="#00F5FF" stroke-width="1" opacity="0.6"/>
+  
+  <line x1="208" y1="60" x2="292" y2="80" stroke="#FF6B6B" stroke-width="1" opacity="0.6"/>
+  <line x1="208" y1="60" x2="292" y2="120" stroke="#FF6B6B" stroke-width="1" opacity="0.6"/>
+  <line x1="208" y1="100" x2="292" y2="80" stroke="#FF6B6B" stroke-width="1" opacity="0.6"/>
+  <line x1="208" y1="100" x2="292" y2="120" stroke="#FF6B6B" stroke-width="1" opacity="0.6"/>
+  <line x1="208" y1="140" x2="292" y2="120" stroke="#FF6B6B" stroke-width="1" opacity="0.6"/>
+  <line x1="208" y1="140" x2="292" y2="160" stroke="#FF6B6B" stroke-width="1" opacity="0.6"/>
+  <line x1="208" y1="180" x2="292" y2="160" stroke="#FF6B6B" stroke-width="1" opacity="0.6"/>
+  
+  <!-- Data Points -->
+  <circle cx="50" cy="220" r="3" fill="#00F5FF"/>
+  <circle cx="70" cy="210" r="3" fill="#FF3366"/>
+  <circle cx="90" cy="230" r="3" fill="#00F5FF"/>
+  <circle cx="110" cy="200" r="3" fill="#FF6B6B"/>
+  <circle cx="130" cy="240" r="3" fill="#00F5FF"/>
+  <circle cx="150" cy="190" r="3" fill="#FF3366"/>
+  <circle cx="170" cy="250" r="3" fill="#00F5FF"/>
+  <circle cx="190" cy="180" r="3" fill="#FF6B6B"/>
+  <circle cx="210" cy="260" r="3" fill="#00F5FF"/>
+  <circle cx="230" cy="170" r="3" fill="#FF3366"/>
+  <circle cx="250" cy="270" r="3" fill="#00F5FF"/>
+  <circle cx="270" cy="160" r="3" fill="#FF6B6B"/>
+  <circle cx="290" cy="280" r="3" fill="#00F5FF"/>
+  <circle cx="310" cy="150" r="3" fill="#FF3366"/>
+  <circle cx="330" cy="290" r="3" fill="#00F5FF"/>
+  <circle cx="350" cy="140" r="3" fill="#FF6B6B"/>
+  
+  <!-- AI Brain Icon -->
+  <circle cx="320" cy="50" r="20" fill="url(#mlGradient)" opacity="0.8"/>
+  <path d="M310 50 Q320 40 330 50 Q320 60 310 50" fill="#fff" opacity="0.9"/>
+  <path d="M315 45 Q320 40 325 45" fill="#fff" opacity="0.9"/>
+  <path d="M315 55 Q320 60 325 55" fill="#fff" opacity="0.9"/>
+  
+  <!-- Python Badge -->
+  <rect x="50" y="250" width="80" height="25" fill="#00F5FF" rx="12"/>
+  <text x="90" y="267" text-anchor="middle" fill="#0a0a0a" font-family="Arial, sans-serif" font-size="10" font-weight="bold">PYTHON</text>
+  
+  <!-- ML Badge -->
+  <rect x="270" y="250" width="80" height="25" fill="#FF3366" rx="12"/>
+  <text x="310" y="267" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="10" font-weight="bold">ML/AI</text>
+</svg> 
