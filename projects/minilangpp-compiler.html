@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=yes, maximum-scale=5.0">
+    <meta name="description" content="MiniLangPP Compiler - Custom programming language compiler built from scratch">
+    <meta name="author" content="Umair Inayat">
+    <title>MiniLangPP Compiler | Umair Inayat</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #00ff88;
+            --secondary: #ff0066;
+            --accent: #00d4ff;
+            --bg-dark: #0a0a0a;
+            --bg-card: rgba(15, 15, 15, 0.85);
+            --bg-glass: rgba(255, 255, 255, 0.05);
+            --text-primary: #ffffff;
+            --text-secondary: #b8b8b8;
+            --text-muted: #8a8a8a;
+            --gradient-primary: linear-gradient(135deg, #00ff88 0%, #00d4ff 50%, #33ff99 100%);
+            --gradient-bg: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 30%, #16213e 70%, #0f3460 100%);
+            --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.3);
+            --blur-md: blur(16px);
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 100px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        /* Animated Background */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: var(--gradient-bg);
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: var(--blur-md);
+            -webkit-backdrop-filter: var(--blur-md);
+            border-bottom: 1px solid rgba(0, 255, 136, 0.15);
+            z-index: 1000;
+            padding: 1.2rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-decoration: none;
+        }
+
+        .back-btn {
+            padding: 0.5rem 1.5rem;
+            background: var(--bg-glass);
+            backdrop-filter: var(--blur-md);
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .back-btn:hover {
+            background: var(--primary);
+            color: var(--bg-dark);
+            transform: translateY(-2px);
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 8rem 2rem 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .project-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .project-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .project-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .project-tags {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .tag {
+            padding: 0.5rem 1rem;
+            background: var(--bg-card);
+            border: 1px solid var(--primary);
+            border-radius: 25px;
+            color: var(--primary);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .project-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .btn {
+            padding: 0.875rem 2rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: var(--bg-dark);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--bg-glass);
+            backdrop-filter: var(--blur-md);
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: var(--bg-dark);
+            transform: translateY(-3px);
+        }
+
+        /* Content Sections */
+        .content-section {
+            background: var(--bg-glass);
+            backdrop-filter: var(--blur-md);
+            -webkit-backdrop-filter: var(--blur-md);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: var(--shadow-glass);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section-content {
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .feature-card {
+            background: rgba(0, 255, 136, 0.05);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            border-radius: 15px;
+            padding: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-title {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .code-block {
+            background: #1a1a1a;
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+        }
+
+        .code-block pre {
+            margin: 0;
+            color: var(--text-primary);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 6rem 1rem 3rem;
+            }
+            
+            .project-title {
+                font-size: 2.5rem;
+            }
+            
+            .content-section {
+                padding: 1.5rem;
+            }
+            
+            .project-links {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 250px;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg"></div>
+    
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="logo">&lt;/Umair&gt;</a>
+            <a href="../index.html#portfolio" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+                Back to Portfolio
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Project Header -->
+        <div class="project-header">
+            <h1 class="project-title">MiniLangPP Compiler</h1>
+            <p class="project-subtitle">Custom programming language compiler built from scratch with lexical analysis, parsing, and code generation</p>
+            
+            <div class="project-tags">
+                <span class="tag">C++</span>
+                <span class="tag">Compiler Design</span>
+                <span class="tag">Programming Languages</span>
+                <span class="tag">Systems Programming</span>
+            </div>
+            
+            <div class="project-links">
+                <a href="https://github.com/umairinayat/MiniLangPP" class="btn btn-primary" target="_blank">
+                    <i class="fab fa-github"></i>
+                    View on GitHub
+                </a>
+                <a href="#demo" class="btn btn-secondary">
+                    <i class="fas fa-play"></i>
+                    Try Online
+                </a>
+            </div>
+        </div>
+
+        <!-- Overview Section -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-info-circle"></i>
+                Project Overview
+            </h2>
+            <div class="section-content">
+                <p>MiniLangPP is a custom programming language compiler built entirely from scratch in C++. This project demonstrates a deep understanding of compiler construction principles, including lexical analysis, syntax parsing, semantic analysis, and code generation. The compiler translates source code written in the MiniLangPP language into executable machine code.</p>
+                
+                <p>The project showcases advanced computer science concepts including formal language theory, automata, parsing algorithms, and code optimization techniques. It serves as a comprehensive example of systems programming and compiler engineering.</p>
+            </div>
+        </div>
+
+        <!-- Features Section -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-star"></i>
+                Key Features
+            </h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">Lexical Analysis</h3>
+                    <p>Complete tokenization with support for keywords, identifiers, operators, and literals.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Syntax Parsing</h3>
+                    <p>Recursive descent parser with proper error handling and recovery mechanisms.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Semantic Analysis</h3>
+                    <p>Type checking, scope resolution, and symbol table management.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Code Generation</h3>
+                    <p>Assembly code generation with basic optimization techniques.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Error Reporting</h3>
+                    <p>Comprehensive error messages with line numbers and suggestions.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Standard Library</h3>
+                    <p>Built-in functions for I/O operations and basic data manipulation.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Language Syntax Section -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-code"></i>
+                MiniLangPP Syntax
+            </h2>
+            <div class="section-content">
+                <p>Here's an example of MiniLangPP syntax:</p>
+                
+                <div class="code-block">
+                    <pre>// Variable declarations
+int x = 10;
+float pi = 3.14159;
+string message = "Hello, World!";
+
+// Function definition
+function factorial(int n) -> int {
+    if (n <= 1) {
+        return 1;
+    } else {
+        return n * factorial(n - 1);
+    }
+}
+
+// Main program
+function main() -> int {
+    int result = factorial(5);
+    print("Factorial of 5 is: " + toString(result));
+    return 0;
+}</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Technical Implementation -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-cogs"></i>
+                Implementation Details
+            </h2>
+            <div class="section-content">
+                <p>The compiler is implemented in modern C++ with the following architecture:</p>
+                
+                <div class="code-block">
+                    <pre>// Lexer - Tokenization
+class Lexer {
+    std::vector&lt;Token&gt; tokenize(const std::string& source);
+    Token nextToken();
+    bool isKeyword(const std::string& word);
+};
+
+// Parser - Syntax Analysis
+class Parser {
+    AST* parseProgram();
+    AST* parseStatement();
+    AST* parseExpression();
+    void error(const std::string& message);
+};
+
+// Code Generator - Assembly Output
+class CodeGenerator {
+    void generate(AST* tree);
+    void emitInstruction(const std::string& instruction);
+    void optimizeCode();
+};</pre>
+                </div>
+                
+                <h3 style="color: var(--primary); margin: 1.5rem 0 1rem 0;">Compiler Phases:</h3>
+                <ul style="margin-left: 1.5rem;">
+                    <li><strong>Lexical Analysis:</strong> Finite state automaton for token recognition</li>
+                    <li><strong>Syntax Analysis:</strong> Recursive descent parser with LL(1) grammar</li>
+                    <li><strong>Semantic Analysis:</strong> Symbol table and type checking</li>
+                    <li><strong>Code Generation:</strong> Three-address code intermediate representation</li>
+                    <li><strong>Optimization:</strong> Basic peephole and constant folding optimizations</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Usage Section -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-terminal"></i>
+                Usage
+            </h2>
+            <div class="section-content">
+                <div class="code-block">
+                    <pre># Compile the compiler
+g++ -std=c++17 -o minilangpp *.cpp
+
+# Compile a MiniLangPP program
+./minilangpp program.mlpp -o output.asm
+
+# Assemble and link (using NASM and GCC)
+nasm -f elf64 output.asm -o output.o
+gcc output.o -o program
+./program</pre>
+                </div>
+                
+                <h3 style="color: var(--primary); margin: 1.5rem 0 1rem 0;">Command Line Options:</h3>
+                <ul style="margin-left: 1.5rem;">
+                    <li><code>-o &lt;file&gt;</code> - Specify output file</li>
+                    <li><code>-v</code> - Verbose compilation output</li>
+                    <li><code>-O</code> - Enable optimizations</li>
+                    <li><code>--ast</code> - Print abstract syntax tree</li>
+                    <li><code>--tokens</code> - Print token stream</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Future Enhancements -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-rocket"></i>
+                Future Enhancements
+            </h2>
+            <div class="section-content">
+                <ul style="margin-left: 1.5rem; color: var(--text-secondary);">
+                    <li><strong>Advanced Optimizations:</strong> Loop unrolling, dead code elimination</li>
+                    <li><strong>Debugging Support:</strong> Debug symbol generation and GDB integration</li>
+                    <li><strong>Object-Oriented Features:</strong> Classes, inheritance, polymorphism</li>
+                    <li><strong>Standard Library Expansion:</strong> File I/O, networking, data structures</li>
+                    <li><strong>IDE Integration:</strong> Syntax highlighting and IntelliSense support</li>
+                    <li><strong>Cross-Platform Support:</strong> ARM and x86 code generation</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

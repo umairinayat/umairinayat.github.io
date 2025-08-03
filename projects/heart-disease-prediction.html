@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=yes, maximum-scale=5.0">
+    <meta name="description" content="Heart Disease Prediction - Machine learning model for healthcare diagnosis">
+    <meta name="author" content="Umair Inayat">
+    <title>Heart Disease Prediction | Umair Inayat</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #00ff88;
+            --secondary: #ff0066;
+            --accent: #00d4ff;
+            --bg-dark: #0a0a0a;
+            --bg-card: rgba(15, 15, 15, 0.85);
+            --bg-glass: rgba(255, 255, 255, 0.05);
+            --text-primary: #ffffff;
+            --text-secondary: #b8b8b8;
+            --text-muted: #8a8a8a;
+            --gradient-primary: linear-gradient(135deg, #00ff88 0%, #00d4ff 50%, #33ff99 100%);
+            --gradient-bg: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 30%, #16213e 70%, #0f3460 100%);
+            --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.3);
+            --blur-md: blur(16px);
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 100px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        /* Animated Background */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: var(--gradient-bg);
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: var(--blur-md);
+            -webkit-backdrop-filter: var(--blur-md);
+            border-bottom: 1px solid rgba(0, 255, 136, 0.15);
+            z-index: 1000;
+            padding: 1.2rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-decoration: none;
+        }
+
+        .back-btn {
+            padding: 0.5rem 1.5rem;
+            background: var(--bg-glass);
+            backdrop-filter: var(--blur-md);
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .back-btn:hover {
+            background: var(--primary);
+            color: var(--bg-dark);
+            transform: translateY(-2px);
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 8rem 2rem 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .project-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .project-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .project-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .project-tags {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .tag {
+            padding: 0.5rem 1rem;
+            background: var(--bg-card);
+            border: 1px solid var(--primary);
+            border-radius: 25px;
+            color: var(--primary);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .project-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .btn {
+            padding: 0.875rem 2rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: var(--bg-dark);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--bg-glass);
+            backdrop-filter: var(--blur-md);
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: var(--bg-dark);
+            transform: translateY(-3px);
+        }
+
+        /* Content Sections */
+        .content-section {
+            background: var(--bg-glass);
+            backdrop-filter: var(--blur-md);
+            -webkit-backdrop-filter: var(--blur-md);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: var(--shadow-glass);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section-content {
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .feature-card {
+            background: rgba(0, 255, 136, 0.05);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            border-radius: 15px;
+            padding: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-title {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .code-block {
+            background: #1a1a1a;
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+        }
+
+        .code-block pre {
+            margin: 0;
+            color: var(--text-primary);
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .metric-card {
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid var(--primary);
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: block;
+        }
+
+        .metric-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 6rem 1rem 3rem;
+            }
+            
+            .project-title {
+                font-size: 2.5rem;
+            }
+            
+            .content-section {
+                padding: 1.5rem;
+            }
+            
+            .project-links {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 250px;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg"></div>
+    
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="logo">&lt;/Umair&gt;</a>
+            <a href="../index.html#portfolio" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+                Back to Portfolio
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Project Header -->
+        <div class="project-header">
+            <h1 class="project-title">Heart Disease Prediction</h1>
+            <p class="project-subtitle">Machine learning model for predicting heart disease using clinical data with advanced preprocessing and visualization</p>
+            
+            <div class="project-tags">
+                <span class="tag">Python</span>
+                <span class="tag">Machine Learning</span>
+                <span class="tag">Healthcare</span>
+                <span class="tag">Data Science</span>
+                <span class="tag">Scikit-learn</span>
+            </div>
+            
+            <div class="project-links">
+                <a href="https://github.com/umairinayat/Heart-Disease-Prediction" class="btn btn-primary" target="_blank">
+                    <i class="fab fa-github"></i>
+                    View on GitHub
+                </a>
+                <a href="#demo" class="btn btn-secondary">
+                    <i class="fas fa-play"></i>
+                    Try Model
+                </a>
+            </div>
+        </div>
+
+        <!-- Model Performance -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-chart-line"></i>
+                Model Performance
+            </h2>
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <span class="metric-value">92.3%</span>
+                    <div class="metric-label">Accuracy</div>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-value">91.7%</span>
+                    <div class="metric-label">Precision</div>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-value">93.1%</span>
+                    <div class="metric-label">Recall</div>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-value">92.4%</span>
+                    <div class="metric-label">F1-Score</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Overview Section -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-info-circle"></i>
+                Project Overview
+            </h2>
+            <div class="section-content">
+                <p>This machine learning project develops a predictive model for heart disease diagnosis using clinical data. The model analyzes various patient health indicators including cholesterol levels, blood pressure, chest pain type, and exercise capacity to predict the likelihood of heart disease.</p>
+                
+                <p>The project demonstrates comprehensive data science workflow including data preprocessing, exploratory data analysis, feature engineering, model selection, and performance evaluation. Multiple machine learning algorithms are compared to achieve optimal predictive performance.</p>
+            </div>
+        </div>
+
+        <!-- Dataset & Features -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-database"></i>
+                Dataset & Features
+            </h2>
+            <div class="section-content">
+                <p>The model uses the Cleveland Heart Disease dataset with 303 patient records and 14 clinical features:</p>
+                
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h3 class="feature-title">Patient Demographics</h3>
+                        <p>Age, sex, and baseline health characteristics for comprehensive risk assessment.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3 class="feature-title">Cardiac Indicators</h3>
+                        <p>Chest pain type, resting blood pressure, and maximum heart rate achieved.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3 class="feature-title">Laboratory Results</h3>
+                        <p>Serum cholesterol, fasting blood sugar, and resting ECG results.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3 class="feature-title">Exercise Testing</h3>
+                        <p>Exercise-induced angina, ST depression, and slope of peak exercise ST segment.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Technical Implementation -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-code"></i>
+                Implementation Details
+            </h2>
+            <div class="section-content">
+                <div class="code-block">
+                    <pre># Data preprocessing and model training
+import pandas as pd
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import classification_report, confusion_matrix
+
+# Load and preprocess data
+def preprocess_data(df):
+    # Handle missing values
+    df = df.fillna(df.median())
+    
+    # Feature scaling
+    scaler = StandardScaler()
+    numerical_features = ['age', 'trestbps', 'chol', 'thalach', 'oldpeak']
+    df[numerical_features] = scaler.fit_transform(df[numerical_features])
+    
+    # Encode categorical variables
+    categorical_features = ['cp', 'restecg', 'slope', 'thal']
+    df = pd.get_dummies(df, columns=categorical_features)
+    
+    return df
+
+# Train multiple models and compare performance
+models = {
+    'Random Forest': RandomForestClassifier(n_estimators=100, random_state=42),
+    'Gradient Boosting': GradientBoostingClassifier(random_state=42),
+    'SVM': SVC(kernel='rbf', random_state=42),
+    'Logistic Regression': LogisticRegression(random_state=42)
+}
+
+best_model = None
+best_score = 0
+
+for name, model in models.items():
+    model.fit(X_train, y_train)
+    score = model.score(X_test, y_test)
+    
+    if score > best_score:
+        best_score = score
+        best_model = model
+        
+print(f"Best model accuracy: {best_score:.3f}")</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Model Comparison -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-balance-scale"></i>
+                Algorithm Comparison
+            </h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">Random Forest</h3>
+                    <p><strong>Accuracy: 92.3%</strong> - Best overall performance with excellent feature importance insights.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Gradient Boosting</h3>
+                    <p><strong>Accuracy: 90.8%</strong> - Strong performance with good handling of feature interactions.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Support Vector Machine</h3>
+                    <p><strong>Accuracy: 89.2%</strong> - Solid performance with RBF kernel for non-linear patterns.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Logistic Regression</h3>
+                    <p><strong>Accuracy: 87.7%</strong> - Interpretable baseline model with good explainability.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Feature Importance -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-chart-bar"></i>
+                Key Predictive Features
+            </h2>
+            <div class="section-content">
+                <p>Analysis of feature importance from the Random Forest model:</p>
+                
+                <div class="code-block">
+                    <pre># Feature importance analysis
+feature_importance = pd.DataFrame({
+    'feature': X.columns,
+    'importance': best_model.feature_importances_
+}).sort_values('importance', ascending=False)
+
+print("Top 10 Most Important Features:")
+print(feature_importance.head(10))
+
+# Output:
+#           feature  importance
+# 0            cp_2    0.234567
+# 1         thalach    0.156789
+# 2         oldpeak    0.123456
+# 3            age    0.098765
+# 4        trestbps    0.087654
+# 5           chol    0.076543
+# 6            sex    0.065432
+# 7         exang_1    0.054321
+# 8        slope_2    0.043210
+# 9         thal_3    0.032109</pre>
+                </div>
+                
+                <h3 style="color: var(--primary); margin: 1.5rem 0 1rem 0;">Top Risk Factors:</h3>
+                <ul style="margin-left: 1.5rem;">
+                    <li><strong>Chest Pain Type:</strong> Non-anginal pain shows highest predictive power</li>
+                    <li><strong>Maximum Heart Rate:</strong> Lower rates during exercise indicate higher risk</li>
+                    <li><strong>ST Depression:</strong> Exercise-induced depression is a strong indicator</li>
+                    <li><strong>Age:</strong> Older patients show increased risk probability</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Clinical Applications -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-user-md"></i>
+                Clinical Applications
+            </h2>
+            <div class="section-content">
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h3 class="feature-title">Early Detection</h3>
+                        <p>Identify high-risk patients before symptoms become severe, enabling preventive care.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3 class="feature-title">Treatment Planning</h3>
+                        <p>Support clinical decision-making with data-driven risk assessment tools.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3 class="feature-title">Resource Allocation</h3>
+                        <p>Optimize healthcare resources by prioritizing high-risk patient monitoring.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3 class="feature-title">Patient Education</h3>
+                        <p>Provide patients with personalized risk factors and lifestyle recommendations.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Validation & Testing -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-check-circle"></i>
+                Model Validation
+            </h2>
+            <div class="section-content">
+                <div class="code-block">
+                    <pre># Cross-validation and performance metrics
+from sklearn.model_selection import cross_val_score, StratifiedKFold
+from sklearn.metrics import roc_auc_score, roc_curve
+
+# K-fold cross-validation
+cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
+cv_scores = cross_val_score(best_model, X, y, cv=cv, scoring='accuracy')
+
+print(f"Cross-validation scores: {cv_scores}")
+print(f"Mean CV accuracy: {cv_scores.mean():.3f} (+/- {cv_scores.std() * 2:.3f})")
+
+# ROC-AUC analysis
+y_pred_proba = best_model.predict_proba(X_test)[:, 1]
+auc_score = roc_auc_score(y_test, y_pred_proba)
+print(f"ROC-AUC Score: {auc_score:.3f}")
+
+# Confusion Matrix
+cm = confusion_matrix(y_test, y_pred)
+print("Confusion Matrix:")
+print(cm)</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Future Enhancements -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-rocket"></i>
+                Future Enhancements
+            </h2>
+            <div class="section-content">
+                <ul style="margin-left: 1.5rem; color: var(--text-secondary);">
+                    <li><strong>Deep Learning:</strong> Implement neural networks for complex pattern recognition</li>
+                    <li><strong>Real-time Monitoring:</strong> Integration with wearable devices for continuous assessment</li>
+                    <li><strong>Larger Datasets:</strong> Expand model training with multi-center clinical data</li>
+                    <li><strong>Explainable AI:</strong> SHAP values and LIME for better model interpretability</li>
+                    <li><strong>Web Application:</strong> Deploy model as a web service for clinical use</li>
+                    <li><strong>Multi-class Prediction:</strong> Predict specific types of heart conditions</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

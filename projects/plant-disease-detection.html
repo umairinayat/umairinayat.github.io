@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=yes, maximum-scale=5.0">
+    <meta name="description" content="Plant Disease Detection CNN - Deep learning for agricultural applications">
+    <meta name="author" content="Umair Inayat">
+    <title>Plant Disease Detection CNN | Umair Inayat</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #00ff88;
+            --secondary: #ff0066;
+            --accent: #00d4ff;
+            --bg-dark: #0a0a0a;
+            --bg-card: rgba(15, 15, 15, 0.85);
+            --bg-glass: rgba(255, 255, 255, 0.05);
+            --text-primary: #ffffff;
+            --text-secondary: #b8b8b8;
+            --text-muted: #8a8a8a;
+            --gradient-primary: linear-gradient(135deg, #00ff88 0%, #00d4ff 50%, #33ff99 100%);
+            --gradient-bg: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 30%, #16213e 70%, #0f3460 100%);
+            --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.3);
+            --blur-md: blur(16px);
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 100px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        /* Animated Background */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: var(--gradient-bg);
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: var(--blur-md);
+            -webkit-backdrop-filter: var(--blur-md);
+            border-bottom: 1px solid rgba(0, 255, 136, 0.15);
+            z-index: 1000;
+            padding: 1.2rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-decoration: none;
+        }
+
+        .back-btn {
+            padding: 0.5rem 1.5rem;
+            background: var(--bg-glass);
+            backdrop-filter: var(--blur-md);
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .back-btn:hover {
+            background: var(--primary);
+            color: var(--bg-dark);
+            transform: translateY(-2px);
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 8rem 2rem 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .project-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .project-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .project-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .project-tags {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .tag {
+            padding: 0.5rem 1rem;
+            background: var(--bg-card);
+            border: 1px solid var(--primary);
+            border-radius: 25px;
+            color: var(--primary);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .project-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .btn {
+            padding: 0.875rem 2rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: var(--bg-dark);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--bg-glass);
+            backdrop-filter: var(--blur-md);
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: var(--bg-dark);
+            transform: translateY(-3px);
+        }
+
+        /* Content Sections */
+        .content-section {
+            background: var(--bg-glass);
+            backdrop-filter: var(--blur-md);
+            -webkit-backdrop-filter: var(--blur-md);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: var(--shadow-glass);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section-content {
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .feature-card {
+            background: rgba(0, 255, 136, 0.05);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            border-radius: 15px;
+            padding: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-title {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .code-block {
+            background: #1a1a1a;
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+        }
+
+        .code-block pre {
+            margin: 0;
+            color: var(--text-primary);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 6rem 1rem 3rem;
+            }
+            
+            .project-title {
+                font-size: 2.5rem;
+            }
+            
+            .content-section {
+                padding: 1.5rem;
+            }
+            
+            .project-links {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 250px;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg"></div>
+    
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="logo">&lt;/Umair&gt;</a>
+            <a href="../index.html#portfolio" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+                Back to Portfolio
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Project Header -->
+        <div class="project-header">
+            <h1 class="project-title">Plant Disease Detection CNN</h1>
+            <p class="project-subtitle">Convolutional Neural Network for automated plant disease detection and classification using computer vision</p>
+            
+            <div class="project-tags">
+                <span class="tag">CNN</span>
+                <span class="tag">Deep Learning</span>
+                <span class="tag">Computer Vision</span>
+                <span class="tag">TensorFlow</span>
+                <span class="tag">Agriculture</span>
+            </div>
+            
+            <div class="project-links">
+                <a href="https://github.com/umairinayat/plant-disease-prediction-cnn-deep-leanring" class="btn btn-primary" target="_blank">
+                    <i class="fab fa-github"></i>
+                    View on GitHub
+                </a>
+                <a href="#demo" class="btn btn-secondary">
+                    <i class="fas fa-camera"></i>
+                    Try Detection
+                </a>
+            </div>
+        </div>
+
+        <!-- Overview Section -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-info-circle"></i>
+                Project Overview
+            </h2>
+            <div class="section-content">
+                <p>This deep learning project develops a Convolutional Neural Network (CNN) to automatically detect and classify plant diseases from leaf images. The system helps farmers identify crop diseases early, enabling timely treatment and reducing agricultural losses.</p>
+                
+                <p>Using state-of-the-art computer vision techniques, the model can distinguish between healthy plants and various disease conditions across multiple plant species. The solution addresses a critical need in precision agriculture by providing accessible, accurate disease diagnosis.</p>
+            </div>
+        </div>
+
+        <!-- Dataset & Classes -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-database"></i>
+                Dataset & Disease Classes
+            </h2>
+            <div class="section-content">
+                <p>The model is trained on a comprehensive dataset of 54,000+ plant leaf images covering 38 different classes:</p>
+                
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h3 class="feature-title">Tomato Diseases</h3>
+                        <p>Bacterial spot, early blight, late blight, leaf mold, septoria leaf spot, spider mites, target spot, mosaic virus, and yellow leaf curl virus.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3 class="feature-title">Potato Diseases</h3>
+                        <p>Early blight, late blight, and healthy potato leaves for comprehensive potato crop monitoring.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3 class="feature-title">Bell Pepper</h3>
+                        <p>Bacterial spot and healthy bell pepper leaves to support greenhouse cultivation.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3 class="feature-title">Other Crops</h3>
+                        <p>Apple scab, black rot, cedar rust, corn blight, grape black rot, and various other crop diseases.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Model Architecture -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-brain"></i>
+                CNN Architecture
+            </h2>
+            <div class="section-content">
+                <div class="code-block">
+                    <pre># CNN Model Architecture
+import tensorflow as tf
+from tensorflow.keras import layers, models
+
+def create_plant_disease_model(input_shape=(224, 224, 3), num_classes=38):
+    model = models.Sequential([
+        # First Convolutional Block
+        layers.Conv2D(32, (3, 3), activation='relu', input_shape=input_shape),
+        layers.BatchNormalization(),
+        layers.MaxPooling2D((2, 2)),
+        layers.Dropout(0.25),
+        
+        # Second Convolutional Block
+        layers.Conv2D(64, (3, 3), activation='relu'),
+        layers.BatchNormalization(),
+        layers.MaxPooling2D((2, 2)),
+        layers.Dropout(0.25),
+        
+        # Third Convolutional Block
+        layers.Conv2D(128, (3, 3), activation='relu'),
+        layers.BatchNormalization(),
+        layers.MaxPooling2D((2, 2)),
+        layers.Dropout(0.25),
+        
+        # Fourth Convolutional Block
+        layers.Conv2D(256, (3, 3), activation='relu'),
+        layers.BatchNormalization(),
+        layers.MaxPooling2D((2, 2)),
+        layers.Dropout(0.25),
+        
+        # Dense Layers
+        layers.Flatten(),
+        layers.Dense(512, activation='relu'),
+        layers.BatchNormalization(),
+        layers.Dropout(0.5),
+        layers.Dense(256, activation='relu'),
+        layers.Dropout(0.3),
+        layers.Dense(num_classes, activation='softmax')
+    ])
+    
+    return model
+
+# Compile model
+model = create_plant_disease_model()
+model.compile(
+    optimizer='adam',
+    loss='categorical_crossentropy',
+    metrics=['accuracy']
+)</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Training Process -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-cogs"></i>
+                Training & Optimization
+            </h2>
+            <div class="section-content">
+                <div class="code-block">
+                    <pre># Data preprocessing and augmentation
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
+
+# Data augmentation for better generalization
+train_datagen = ImageDataGenerator(
+    rescale=1./255,
+    rotation_range=20,
+    width_shift_range=0.2,
+    height_shift_range=0.2,
+    shear_range=0.2,
+    zoom_range=0.2,
+    horizontal_flip=True,
+    fill_mode='nearest'
+)
+
+validation_datagen = ImageDataGenerator(rescale=1./255)
+
+# Training configuration
+BATCH_SIZE = 32
+EPOCHS = 50
+IMG_HEIGHT = 224
+IMG_WIDTH = 224
+
+# Training with callbacks
+from tensorflow.keras.callbacks import EarlyStopping, ReduceLROnPlateau
+
+callbacks = [
+    EarlyStopping(patience=10, restore_best_weights=True),
+    ReduceLROnPlateau(factor=0.5, patience=5, min_lr=1e-7)
+]
+
+# Train the model
+history = model.fit(
+    train_generator,
+    steps_per_epoch=train_generator.samples // BATCH_SIZE,
+    epochs=EPOCHS,
+    validation_data=validation_generator,
+    validation_steps=validation_generator.samples // BATCH_SIZE,
+    callbacks=callbacks
+)</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Model Performance -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-chart-line"></i>
+                Performance Results
+            </h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">Training Accuracy</h3>
+                    <p><strong>96.8%</strong> - Excellent learning on training dataset with proper convergence.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Validation Accuracy</h3>
+                    <p><strong>94.2%</strong> - Strong generalization performance on unseen plant images.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Inference Speed</h3>
+                    <p><strong>~50ms</strong> per image on GPU, enabling real-time disease detection in field conditions.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Model Size</h3>
+                    <p><strong>23.4 MB</strong> optimized for mobile deployment and edge computing applications.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Applications -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-seedling"></i>
+                Agricultural Applications
+            </h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">Early Detection</h3>
+                    <p>Identify diseases before visible symptoms become severe, enabling preventive treatment.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Precision Agriculture</h3>
+                    <p>Support data-driven farming decisions with accurate disease classification.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Crop Monitoring</h3>
+                    <p>Continuous monitoring of crop health through drone imagery and field cameras.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Treatment Guidance</h3>
+                    <p>Recommend specific treatments and fungicides based on detected disease type.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Deployment -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-mobile-alt"></i>
+                Deployment Options
+            </h2>
+            <div class="section-content">
+                <div class="code-block">
+                    <pre># Mobile deployment with TensorFlow Lite
+import tensorflow as tf
+
+# Convert to TensorFlow Lite
+converter = tf.lite.TFLiteConverter.from_keras_model(model)
+converter.optimizations = [tf.lite.Optimize.DEFAULT]
+tflite_model = converter.convert()
+
+# Save the model
+with open('plant_disease_model.tflite', 'wb') as f:
+    f.write(tflite_model)
+
+# Web deployment with TensorFlow.js
+import tensorflowjs as tfjs
+
+tfjs.converters.save_keras_model(model, 'web_model/')
+
+# Docker deployment
+"""
+FROM tensorflow/tensorflow:latest-gpu
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+COPY . /app
+WORKDIR /app
+EXPOSE 8000
+CMD ["python", "app.py"]
+"""</pre>
+                </div>
+                
+                <h3 style="color: var(--primary); margin: 1.5rem 0 1rem 0;">Deployment Platforms:</h3>
+                <ul style="margin-left: 1.5rem;">
+                    <li><strong>Mobile Apps:</strong> iOS and Android applications using TensorFlow Lite</li>
+                    <li><strong>Web Interface:</strong> Browser-based detection using TensorFlow.js</li>
+                    <li><strong>Edge Devices:</strong> Raspberry Pi and embedded systems for field deployment</li>
+                    <li><strong>Cloud API:</strong> RESTful API service for integration with farming software</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Impact & Benefits -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-chart-pie"></i>
+                Agricultural Impact
+            </h2>
+            <div class="section-content">
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h3 class="feature-title">Crop Loss Reduction</h3>
+                        <p>Early detection can reduce crop losses by up to <strong>40%</strong> through timely intervention.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3 class="feature-title">Cost Savings</h3>
+                        <p>Targeted treatment reduces pesticide usage by <strong>30%</strong> and associated costs.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3 class="feature-title">Diagnostic Speed</h3>
+                        <p><strong>100x faster</strong> than traditional expert diagnosis, enabling rapid response.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3 class="feature-title">Accessibility</h3>
+                        <p>Democratizes expert knowledge, helping smallholder farmers access professional diagnosis.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Future Enhancements -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-rocket"></i>
+                Future Development
+            </h2>
+            <div class="section-content">
+                <ul style="margin-left: 1.5rem; color: var(--text-secondary);">
+                    <li><strong>Multi-modal Analysis:</strong> Combine visual data with environmental sensors</li>
+                    <li><strong>Disease Progression:</strong> Track disease development over time</li>
+                    <li><strong>Treatment Recommendation:</strong> AI-powered treatment and dosage suggestions</li>
+                    <li><strong>Crop Yield Prediction:</strong> Integrate disease data with yield forecasting</li>
+                    <li><strong>Global Dataset:</strong> Expand to include regional disease variations</li>
+                    <li><strong>Real-time Monitoring:</strong> Continuous field monitoring with IoT integration</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

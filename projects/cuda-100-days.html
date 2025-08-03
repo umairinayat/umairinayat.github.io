@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=yes, maximum-scale=5.0">
+    <meta name="description" content="CUDA 100 Days Challenge - Master GPU programming with parallel computing">
+    <meta name="author" content="Umair Inayat">
+    <title>CUDA 100 Days Challenge | Umair Inayat</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #00ff88;
+            --secondary: #ff0066;
+            --accent: #00d4ff;
+            --bg-dark: #0a0a0a;
+            --bg-card: rgba(15, 15, 15, 0.85);
+            --bg-glass: rgba(255, 255, 255, 0.05);
+            --text-primary: #ffffff;
+            --text-secondary: #b8b8b8;
+            --text-muted: #8a8a8a;
+            --gradient-primary: linear-gradient(135deg, #00ff88 0%, #00d4ff 50%, #33ff99 100%);
+            --gradient-bg: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 30%, #16213e 70%, #0f3460 100%);
+            --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.3);
+            --blur-md: blur(16px);
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 100px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        /* Animated Background */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: var(--gradient-bg);
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: var(--blur-md);
+            -webkit-backdrop-filter: var(--blur-md);
+            border-bottom: 1px solid rgba(0, 255, 136, 0.15);
+            z-index: 1000;
+            padding: 1.2rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-decoration: none;
+        }
+
+        .back-btn {
+            padding: 0.5rem 1.5rem;
+            background: var(--bg-glass);
+            backdrop-filter: var(--blur-md);
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .back-btn:hover {
+            background: var(--primary);
+            color: var(--bg-dark);
+            transform: translateY(-2px);
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 8rem 2rem 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .project-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .project-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .project-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .project-tags {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .tag {
+            padding: 0.5rem 1rem;
+            background: var(--bg-card);
+            border: 1px solid var(--primary);
+            border-radius: 25px;
+            color: var(--primary);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .project-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .btn {
+            padding: 0.875rem 2rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: var(--bg-dark);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--bg-glass);
+            backdrop-filter: var(--blur-md);
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: var(--bg-dark);
+            transform: translateY(-3px);
+        }
+
+        /* Content Sections */
+        .content-section {
+            background: var(--bg-glass);
+            backdrop-filter: var(--blur-md);
+            -webkit-backdrop-filter: var(--blur-md);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: var(--shadow-glass);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section-content {
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .feature-card {
+            background: rgba(0, 255, 136, 0.05);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            border-radius: 15px;
+            padding: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-title {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .code-block {
+            background: #1a1a1a;
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+        }
+
+        .code-block pre {
+            margin: 0;
+            color: var(--text-primary);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--gradient-primary);
+            border-radius: 10px;
+            width: 75%;
+            transition: width 0.3s ease;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 6rem 1rem 3rem;
+            }
+            
+            .project-title {
+                font-size: 2.5rem;
+            }
+            
+            .content-section {
+                padding: 1.5rem;
+            }
+            
+            .project-links {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 250px;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg"></div>
+    
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="logo">&lt;/Umair&gt;</a>
+            <a href="../index.html#portfolio" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+                Back to Portfolio
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Project Header -->
+        <div class="project-header">
+            <h1 class="project-title">CUDA 100 Days Challenge</h1>
+            <p class="project-subtitle">100-day journey to master GPU programming with CUDA kernels and parallel computing optimization</p>
+            
+            <div class="project-tags">
+                <span class="tag">CUDA</span>
+                <span class="tag">GPU Programming</span>
+                <span class="tag">Parallel Computing</span>
+                <span class="tag">C++</span>
+                <span class="tag">Performance</span>
+            </div>
+            
+            <div class="project-links">
+                <a href="https://github.com/umairinayat/cuda-100-days" class="btn btn-primary" target="_blank">
+                    <i class="fab fa-github"></i>
+                    View on GitHub
+                </a>
+                <a href="#progress" class="btn btn-secondary">
+                    <i class="fas fa-chart-line"></i>
+                    View Progress
+                </a>
+            </div>
+        </div>
+
+        <!-- Progress Section -->
+        <div class="content-section" id="progress">
+            <h2 class="section-title">
+                <i class="fas fa-calendar-check"></i>
+                Challenge Progress
+            </h2>
+            <div class="section-content">
+                <p><strong>Days Completed: 75/100</strong></p>
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+                <p>Started on January 1st, 2024 with a commitment to learn GPU programming fundamentals and advance to complex optimizations. Each day includes hands-on coding, kernel optimization, and performance analysis.</p>
+            </div>
+        </div>
+
+        <!-- Overview Section -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-info-circle"></i>
+                Challenge Overview
+            </h2>
+            <div class="section-content">
+                <p>The CUDA 100 Days Challenge is an intensive learning journey focused on mastering GPU programming through daily practice and progressively complex projects. This challenge covers everything from basic CUDA kernel development to advanced optimization techniques used in high-performance computing.</p>
+                
+                <p>Each day includes practical coding exercises, performance benchmarking, and deep dives into GPU architecture. The challenge progresses from simple parallel algorithms to complex applications in machine learning, scientific computing, and graphics processing.</p>
+            </div>
+        </div>
+
+        <!-- Learning Topics -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-book"></i>
+                Learning Topics Covered
+            </h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">Days 1-20: Fundamentals</h3>
+                    <p>CUDA basics, kernel functions, thread organization, memory types, and simple parallel algorithms.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Days 21-40: Memory Management</h3>
+                    <p>Global, shared, constant memory optimization, memory coalescing, and bandwidth optimization.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Days 41-60: Advanced Patterns</h3>
+                    <p>Reduction operations, scan algorithms, dynamic parallelism, and warp-level primitives.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Days 61-80: Optimization</h3>
+                    <p>Performance profiling, occupancy optimization, instruction throughput, and memory hierarchy.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Days 81-100: Applications</h3>
+                    <p>Machine learning kernels, image processing, numerical simulations, and real-world projects.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Code Examples -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-code"></i>
+                Sample CUDA Code
+            </h2>
+            <div class="section-content">
+                <p>Here's an example from Day 45 - Optimized Matrix Multiplication:</p>
+                
+                <div class="code-block">
+                    <pre>__global__ void matrixMulShared(float* A, float* B, float* C, 
+                                   int width) {
+    __shared__ float sharedA[TILE_SIZE][TILE_SIZE];
+    __shared__ float sharedB[TILE_SIZE][TILE_SIZE];
+    
+    int bx = blockIdx.x, by = blockIdx.y;
+    int tx = threadIdx.x, ty = threadIdx.y;
+    
+    int row = by * TILE_SIZE + ty;
+    int col = bx * TILE_SIZE + tx;
+    
+    float sum = 0.0f;
+    
+    for (int tile = 0; tile < (width + TILE_SIZE - 1) / TILE_SIZE; ++tile) {
+        // Load tiles into shared memory
+        if (row < width && tile * TILE_SIZE + tx < width)
+            sharedA[ty][tx] = A[row * width + tile * TILE_SIZE + tx];
+        else
+            sharedA[ty][tx] = 0.0f;
+            
+        if (col < width && tile * TILE_SIZE + ty < width)
+            sharedB[ty][tx] = B[(tile * TILE_SIZE + ty) * width + col];
+        else
+            sharedB[ty][tx] = 0.0f;
+            
+        __syncthreads();
+        
+        // Compute partial results
+        for (int k = 0; k < TILE_SIZE; ++k) {
+            sum += sharedA[ty][k] * sharedB[k][tx];
+        }
+        
+        __syncthreads();
+    }
+    
+    if (row < width && col < width) {
+        C[row * width + col] = sum;
+    }
+}</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Performance Achievements -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-trophy"></i>
+                Performance Achievements
+            </h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">Matrix Multiplication</h3>
+                    <p><strong>50x speedup</strong> over CPU implementation using shared memory and tiling.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Image Convolution</h3>
+                    <p><strong>30x speedup</strong> for 2D convolution operations with optimized memory access.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Vector Operations</h3>
+                    <p><strong>100x speedup</strong> for large vector additions and dot products.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Neural Network Training</h3>
+                    <p><strong>25x speedup</strong> for forward and backward propagation in deep networks.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Daily Structure -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-calendar-day"></i>
+                Daily Learning Structure
+            </h2>
+            <div class="section-content">
+                <h3 style="color: var(--primary); margin: 1.5rem 0 1rem 0;">Each Day Includes:</h3>
+                <ul style="margin-left: 1.5rem;">
+                    <li><strong>Theory (30 min):</strong> Study GPU architecture and CUDA concepts</li>
+                    <li><strong>Coding (60 min):</strong> Implement kernels and optimization techniques</li>
+                    <li><strong>Benchmarking (15 min):</strong> Profile performance and analyze results</li>
+                    <li><strong>Documentation (15 min):</strong> Record learnings and code insights</li>
+                </ul>
+                
+                <div class="code-block">
+                    <pre>// Daily practice example - Day 32: Reduction Operations
+__global__ void reduceSum(float* input, float* output, int n) {
+    extern __shared__ float sdata[];
+    
+    unsigned int tid = threadIdx.x;
+    unsigned int i = blockIdx.x * blockDim.x + threadIdx.x;
+    
+    // Load data into shared memory
+    sdata[tid] = (i < n) ? input[i] : 0;
+    __syncthreads();
+    
+    // Perform reduction in shared memory
+    for (unsigned int s = blockDim.x / 2; s > 0; s >>= 1) {
+        if (tid < s) {
+            sdata[tid] += sdata[tid + s];
+        }
+        __syncthreads();
+    }
+    
+    // Write result for this block to global memory
+    if (tid == 0) output[blockIdx.x] = sdata[0];
+}</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tools & Environment -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-tools"></i>
+                Development Environment
+            </h2>
+            <div class="section-content">
+                <h3 style="color: var(--primary); margin: 1.5rem 0 1rem 0;">Hardware & Software Stack:</h3>
+                <ul style="margin-left: 1.5rem;">
+                    <li><strong>GPU:</strong> NVIDIA RTX 3080 (8704 CUDA cores)</li>
+                    <li><strong>CUDA Toolkit:</strong> Version 12.0 with latest drivers</li>
+                    <li><strong>Compiler:</strong> nvcc with C++17 support</li>
+                    <li><strong>Profiling:</strong> Nsight Compute and nvprof</li>
+                    <li><strong>IDE:</strong> Visual Studio Code with CUDA extensions</li>
+                    <li><strong>Version Control:</strong> Git with daily commits</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Key Learnings -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-lightbulb"></i>
+                Key Learnings & Insights
+            </h2>
+            <div class="section-content">
+                <ul style="margin-left: 1.5rem; color: var(--text-secondary);">
+                    <li><strong>Memory Coalescing:</strong> Proper memory access patterns can improve performance by 5-10x</li>
+                    <li><strong>Occupancy Optimization:</strong> Balancing threads per block with register usage is crucial</li>
+                    <li><strong>Shared Memory:</strong> Effective use of shared memory can eliminate global memory bottlenecks</li>
+                    <li><strong>Warp Divergence:</strong> Understanding execution models prevents performance degradation</li>
+                    <li><strong>Algorithmic Thinking:</strong> GPU algorithms require different approaches than CPU algorithms</li>
+                    <li><strong>Profiling First:</strong> Always profile before optimizing to identify real bottlenecks</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Resources -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-book-open"></i>
+                Learning Resources
+            </h2>
+            <div class="section-content">
+                <h3 style="color: var(--primary); margin: 1.5rem 0 1rem 0;">Recommended Resources:</h3>
+                <ul style="margin-left: 1.5rem;">
+                    <li><strong>NVIDIA CUDA Documentation:</strong> Official programming guide and best practices</li>
+                    <li><strong>"Professional CUDA C Programming":</strong> Comprehensive book on CUDA development</li>
+                    <li><strong>GPU Computing Gems:</strong> Advanced optimization techniques and case studies</li>
+                    <li><strong>NVIDIA Developer Blog:</strong> Latest updates and optimization tips</li>
+                    <li><strong>Stack Overflow CUDA Tag:</strong> Community support and problem solving</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
