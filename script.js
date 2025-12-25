@@ -1,175 +1,202 @@
-// Smooth scroll for navigation links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth'
-        });
-    });
-});
+// Data for Projects
+const projects = [
+    {
+        title: "Transformer from Scratch",
+        description: "Implemented a full Transformer architecture from scratch using PyTorch, featuring Multi-Head Attention and Positional Encodings.",
+        tech: ["PyTorch", "NLP", "Deep Learning"],
+        links: {
+            github: "https://github.com/umairinayat/Transformer-from-scratch",
+            demo: "#"
+        },
+        icon: "fa-robot"
+    },
+    {
+        title: "AI Research Assistant",
+        description: "An intelligent assistant capable of summarizing research papers and answering questions using RAG (Retrieval-Augmented Generation).",
+        tech: ["LangChain", "OpenAI API", "Vector DB"],
+        links: {
+            github: "https://github.com/umairinayat/AI-Research-Assistant",
+            demo: "#"
+        },
+        icon: "fa-microchip"
+    },
+    {
+        title: "Plant Disease Detection",
+        description: "Computer Vision model to detect plant diseases from leaf images using Convolutional Neural Networks (CNNs).",
+        tech: ["TensorFlow", "OpenCV", "CNN"],
+        links: {
+            github: "https://github.com/umairinayat/Plant-Disease-Detection",
+            demo: "#"
+        },
+        icon: "fa-leaf"
+    },
+    {
+        title: "MiniLang++ Compiler",
+        description: "A custom compiler for a subset of C++ language, including lexical analysis, parsing, and semantic analysis phases.",
+        tech: ["C++", "Compiler Design", "Flex/Bison"],
+        links: {
+            github: "https://github.com/umairinayat/MiniLangPP-Compiler",
+            demo: "#"
+        },
+        icon: "fa-code"
+    },
+    {
+        title: "EmotiEase",
+        description: "Real-time emotion recognition system designed to help users understand and manage their emotional well-being.",
+        tech: ["Python", "Face Recognition", "ML"],
+        links: {
+            github: "https://github.com/umairinayat/EmotiEase",
+            demo: "#"
+        },
+        icon: "fa-smile"
+    },
+    {
+        title: "100 Days of CUDA",
+        description: "Intensive 100-day journey mastering parallel computing and GPU programming with CUDA C++ for high-performance ML ops.",
+        tech: ["CUDA", "C++", "HPC"],
+        links: {
+            github: "https://github.com/umairinayat/100-days-of-cuda",
+            demo: "#"
+        },
+        icon: "fa-memory"
+    },
+    {
+        title: "Heart Disease Prediction",
+        description: "Predictive model for early heart disease detection used in clinical decision support systems. Optimized for high sensitivity.",
+        tech: ["Scikit-learn", "Pandas", "HealthTech"],
+        links: {
+            github: "https://github.com/umairinayat/Heart-Disease-Prediction",
+            demo: "#"
+        },
+        icon: "fa-heartbeat"
+    },
+    {
+        title: "Banking System",
+        description: "Robust banking management application handling user accounts, secure transactions, and persistence.",
+        tech: ["C++", "File Handling", "Security"],
+        links: {
+            github: "https://github.com/umairinayat/Banking-management-system",
+            demo: "#"
+        },
+        icon: "fa-university"
+    }
+];
 
-// Intersection Observer for fade-in animations
-const observerOptions = {
-    root: null,
-    rootMargin: '0px',
-    threshold: 0.1
-};
+// Typewriter Effect
+const typewriterText = ["Machine Learning Engineer.", "Data Scientist.", "Deep Learning Researcher."];
+const typewriterElement = document.getElementById("typewriter");
+let textIndex = 0;
+let charIndex = 0;
+let isDeleting = false;
+let typeSpeed = 100;
 
-const observer = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
-            observer.unobserve(entry.target);
-        }
-    });
-}, observerOptions);
+function typeWriter() {
+    const currentText = typewriterText[textIndex];
 
-// Observe all sections
-document.querySelectorAll('section').forEach(section => {
-    observer.observe(section);
-});
-
-// Add hover effect to project cards
-document.querySelectorAll('.project-card').forEach(card => {
-    card.addEventListener('mouseenter', () => {
-        card.style.transform = 'translateY(-10px)';
-    });
-    
-    card.addEventListener('mouseleave', () => {
-        card.style.transform = 'translateY(0)';
-    });
-});
-
-// Add current year to footer
-document.querySelector('.footer').querySelector('p:first-child').textContent = 
-    `© ${new Date().getFullYear()} Umair Inayat. All rights reserved.`;
-
-document.querySelectorAll('a').forEach(link => {
-    link.setAttribute('target', '_blank');
-    link.setAttribute('rel', 'noopener noreferrer');
-  });
-
-// Enhanced Portfolio Website JavaScript
-class PortfolioWebsite {
-    constructor() {
-        this.currentSection = 'home';
-        this.isScrolling = false;
-        this.particles = [];
-        this.init();
+    if (isDeleting) {
+        typewriterElement.textContent = currentText.substring(0, charIndex - 1);
+        charIndex--;
+        typeSpeed = 50;
+    } else {
+        typewriterElement.textContent = currentText.substring(0, charIndex + 1);
+        charIndex++;
+        typeSpeed = 100;
     }
 
-    init() {
-        this.setupEventListeners();
-        this.initializeParticles();
-        this.setupAnimations();
-        this.setupProjectPages();
-        this.setupContactForm();
-        this.setupTypingEffect();
-        this.setupScrollAnimations();
-        this.setupMobileNavigation();
-        this.setupPerformanceOptimizations();
+    if (!isDeleting && charIndex === currentText.length) {
+        isDeleting = true;
+        typeSpeed = 2000; // Pause at end
+    } else if (isDeleting && charIndex === 0) {
+        isDeleting = false;
+        textIndex = (textIndex + 1) % typewriterText.length;
+        typeSpeed = 500;
     }
 
-    setupEventListeners() {
-        // Navigation
-        const navToggle = document.getElementById('nav-toggle');
-        const navMenu = document.getElementById('nav-menu');
-        
-        if (navToggle && navMenu) {
-            navToggle.addEventListener('click', () => {
-                navMenu.classList.toggle('active');
-                navToggle.classList.toggle('active');
-            });
-        }
-
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', (e) => {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                    navMenu.classList.remove('active');
-                }
-            });
-        });
-
-        // Portfolio card interactions
-        document.querySelectorAll('.portfolio-card').forEach(card => {
-            card.addEventListener('mouseenter', this.handleCardHover.bind(this));
-            card.addEventListener('click', this.handleCardClick.bind(this));
-        });
-
-        // Window events
-        window.addEventListener('scroll', this.handleScroll.bind(this));
-        window.addEventListener('resize', this.handleResize.bind(this));
-        window.addEventListener('load', this.handleLoad.bind(this));
-    }
-
-    setupProjectPages() {
-        // Create dynamic project pages
-        const projects = [
-            {
-                id: 'banking-management-system',
-                title: 'Banking Management System',
-                tech: 'C++ • OOP • Banking • Systems',
-                description: 'A comprehensive banking management system semester project built using object-oriented programming principles in C++, featuring account management, transactions, and security features.',
-                github: 'https://github.com/umairinayat/Banking-management-system',
-                features: [
-                    'Account creation and management (Savings, Current, Fixed Deposit)',
-                    'Secure transaction processing (Deposit, Withdrawal, Transfer)',
-                    'Interest calculation and balance management',
-                    'User authentication and authorization',
-                    'Transaction history and reporting',
-                    'Data persistence and file management'
-                ],
-                techStack: ['C++', 'Object-Oriented Programming', 'File I/O', 'Data Structures', 'Algorithms']
-            },
-            {
-                id: 'transformer-from-scratch',
-                title: 'Transformer from Scratch',
-                tech: 'PyTorch • Deep Learning • NLP',
-                description: 'Complete PyTorch implementation of Transformer architecture from scratch, including Scaled Dot-Product Attention, Multi-Head Attention, and Positional Encoding components.',
-                github: 'https://github.com/umairinayat/Transformer-from-scratch',
-                features: [
-                    'Scaled Dot-Product Attention mechanism',
-                    'Multi-Head Attention with configurable heads',
-                    'Positional Encoding (sinusoidal and learned)',
-                    'Feed-Forward Networks with residual connections',
-                    'Layer Normalization',
-                    'Encoder and Decoder blocks'
-                ],
-                techStack: ['PyTorch', 'Python', 'Deep Learning', 'NLP', 'Attention Mechanisms']
-            },
-            {
-                id: 'heart-disease-prediction',
-                title: 'Heart Disease Prediction',
-                tech: 'Python • ML • Healthcare • Data Science',
-                description: 'Machine learning model for predicting heart disease using clinical data. Features data preprocessing, model training, evaluation, and visualization for medical diagnosis support.',
-                github: 'https://github.com/umairinayat/Heart-Disease-Prediction',
-                features: [
-                    'Comprehensive data preprocessing and feature engineering',
-                    'Multiple ML algorithms (Random Forest, SVM, Logistic Regression)',
-                    'Model performance evaluation and comparison',
-                    'Feature importance analysis and visualization',
-                    'Cross-validation and hyperparameter tuning'
-                ],
-                techStack: ['Python', 'Scikit-learn', 'Pandas', 'NumPy', 'Matplotlib', 'Seaborn']
-            }
-        ];
-
-        // Add project detail buttons to portfolio cards
-        projects.forEach(project => {
-            const card = document.querySelector(`[data-project="${project.id}"]`);
-            if (card) {
-                const linksContainer = card.querySelector('.portfolio-links');
-                if (linksContainer) {
-                }
-            }
-        });
-    }
+    setTimeout(typeWriter, typeSpeed);
 }
+
+// Render Projects
+function renderProjects() {
+    const grid = document.getElementById("projects-grid");
+    if (!grid) return;
+
+    grid.innerHTML = projects.map(project => `
+        <div class="project-card" onclick="window.open('${project.links.github}', '_blank')">
+            <div class="card-top">
+                <div class="dot red"></div>
+                <div class="dot yellow"></div>
+                <div class="dot green"></div>
+            </div>
+            <div class="card-body">
+                <i class="fas ${project.icon} project-icon"></i>
+                <h3 class="project-title">${project.title}</h3>
+                <p class="project-desc">${project.description}</p>
+                <div class="project-tech">
+                    ${project.tech.map(t => `<span>${t}</span>`).join('')}
+                </div>
+                <div class="project-links">
+                    <a href="${project.links.github}" target="_blank" class="project-link" title="GitHub Code"><i class="fab fa-github"></i></a>
+                    <a href="${project.links.demo}" class="project-link" title="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+// Mobile Menu Toggle
+const navToggle = document.getElementById("nav-toggle");
+const navMenu = document.getElementById("nav-menu");
+
+if (navToggle) {
+    navToggle.addEventListener("click", () => {
+        navToggle.classList.toggle("open");
+        navMenu.classList.toggle("open");
+    });
+}
+
+// Close mobile menu when clicking a link
+document.querySelectorAll(".nav-link").forEach(link => {
+    link.addEventListener("click", () => {
+        navToggle.classList.remove("open");
+        navMenu.classList.remove("open");
+    });
+});
+
+// Custom Cursor (Optional but "Premium")
+const cursorDot = document.getElementById("cursor-dot");
+const cursorOutline = document.getElementById("cursor-outline");
+
+if (window.matchMedia("(pointer: fine)").matches) {
+    window.addEventListener("mousemove", (e) => {
+        const posX = e.clientX;
+        const posY = e.clientY;
+
+        // Simple follow
+        cursorDot.style.left = `${posX}px`;
+        cursorDot.style.top = `${posY}px`;
+
+        // Trailing effect using simple animation api or just css transition
+        cursorOutline.animate({
+            left: `${posX}px`,
+            top: `${posY}px`
+        }, { duration: 500, fill: "forwards" });
+    });
+}
+
+// Navbar Scroll Effect
+window.addEventListener("scroll", () => {
+    const navbar = document.getElementById("navbar");
+    if (window.scrollY > 50) {
+        navbar.style.boxShadow = "0 10px 30px rgba(0,0,0,0.1)";
+        navbar.style.background = "rgba(10, 10, 10, 0.95)";
+    } else {
+        navbar.style.boxShadow = "none";
+        navbar.style.background = "rgba(10, 10, 10, 0.85)";
+    }
+});
+
+// Initialize
+document.addEventListener("DOMContentLoaded", () => {
+    typeWriter();
+    renderProjects();
+});
