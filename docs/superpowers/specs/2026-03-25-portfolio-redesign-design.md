@@ -47,7 +47,7 @@ Complete rebuild of umairinayat.github.io from static HTML/CSS/JS to a Next.js +
 
 ### 1. Navigation (Sticky)
 - Logo: "UI." with violet accent dot
-- Links: Home, About, Experience, Projects, Achievements, Contact
+- Links: Home, About, Experience, Skills, Projects, Achievements, Contact
 - Resume download button (gradient)
 - Dark/Light mode toggle
 - Mobile: hamburger → slide-in drawer
@@ -157,11 +157,32 @@ Complete rebuild of umairinayat.github.io from static HTML/CSS/JS to a Next.js +
 - No custom cursor on mobile
 - Stats bar: 5-across → 3+2 on tablet → 2+2+1 on mobile
 
+## Accessibility
+- ARIA labels on interactive elements (theme toggle, hamburger, filter tabs, timeline tabs)
+- Focus management for mobile drawer (trap focus, restore on close)
+- `prefers-reduced-motion` media query: disable Framer Motion animations
+- Color contrast: verify muted text meets WCAG AA (min 4.5:1 for body text)
+- Keyboard navigation: all tabs, filters, and buttons focusable and operable
+- Skip-to-content link
+
+## Performance
+- Images: WebP format, lazy loading via `loading="lazy"` on below-fold images
+- Profile photo: max 400x400, optimized
+- Dynamic import Framer Motion for non-critical animations
+- Fonts: `next/font/google` for self-hosted Inter + JetBrains Mono (no layout shift)
+
+## Theme Implementation
+- `next-themes` with `attribute="class"` to integrate with Tailwind `darkMode: 'class'`
+- `suppressHydrationWarning` on `<html>` element to prevent FOUC
+- `ThemeProvider` wraps app in root layout with `defaultTheme="dark"`
+- Theme toggle button in navbar with sun/moon icon transition
+
 ## Deployment
 - `next.config.js`: `output: 'export'`, `images: { unoptimized: true }`
-- GitHub Actions workflow: build → export → deploy to `gh-pages` branch
-- Custom 404 page
-- Base path configuration for GitHub Pages
+- `basePath`: not needed (this is a `*.github.io` user site, deployed to root domain)
+- GitHub Actions workflow: Node 20, `npm ci`, `npm run build`, deploy via `actions/deploy-pages`
+- Cache `node_modules` via `actions/cache`
+- Custom 404 page (`src/app/not-found.tsx`)
 
 ## File Structure
 ```
@@ -170,6 +191,7 @@ Complete rebuild of umairinayat.github.io from static HTML/CSS/JS to a Next.js +
 │   ├── app/
 │   │   ├── layout.tsx          # Root layout, fonts, theme provider
 │   │   ├── page.tsx            # Home page (all sections)
+│   │   ├── not-found.tsx       # Custom 404 page
 │   │   └── globals.css         # Tailwind imports + custom styles
 │   ├── components/
 │   │   ├── Navbar.tsx
@@ -189,6 +211,7 @@ Complete rebuild of umairinayat.github.io from static HTML/CSS/JS to a Next.js +
 │   │       ├── CountUp.tsx
 │   │       └── ScrollReveal.tsx
 │   ├── data/
+│   │   ├── siteConfig.ts       # Name, title, social links, email, resume path, meta
 │   │   ├── projects.ts         # All project data
 │   │   ├── experience.ts       # Experience/education/leadership
 │   │   ├── skills.ts           # Skills by category

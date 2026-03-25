@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://umairinayat.github.io/sitemap.xml
