@@ -9,7 +9,7 @@ export const siteConfig = {
   social: {
     github: "https://github.com/umairinayat",
     linkedin: "https://www.linkedin.com/in/umairinayat/",
-    twitter: "https://x.com/umairstuff",
+    twitter: "https://x.com/umairianyat",
     kaggle: "https://www.kaggle.com/umairinayat",
   },
   stats: [

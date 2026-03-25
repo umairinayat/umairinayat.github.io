@@ -19,6 +19,7 @@ export const projects: Project[] = [
     tech: ["Python", "FastAPI", "React", "PostgreSQL", "LangChain"],
     category: "opensource",
     github: "https://github.com/umairinayat/DeepContext",
+    live: "https://umairinayat.github.io/DeepContext/",
     featured: true,
   },
   {
@@ -55,6 +56,7 @@ export const projects: Project[] = [
     tech: ["TypeScript", "Electron", "OCR", "AI"],
     category: "product",
     github: "https://github.com/umairinayat/Specter-AI",
+    live: "https://umairinayat.github.io/Specter-AI/",
     featured: true,
   },
   {

@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     title: "Umair Inayat | CV Engineer & AI Researcher",
     description:
       "Building production AI systems at the edge. 43+ projects in CV, NLP, LLMs.",
-    creator: "@umairstuff",
+    creator: "@umairianyat",
   },
   robots: {
     index: true,
@@ -65,7 +65,7 @@ const jsonLd = {
   sameAs: [
     "https://github.com/umairinayat",
     "https://www.linkedin.com/in/umairinayat/",
-    "https://x.com/umairstuff",
+    "https://x.com/umairianyat",
     "https://www.kaggle.com/umairinayat",
   ],
   knowsAbout: [
