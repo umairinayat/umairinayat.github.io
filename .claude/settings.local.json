@@ -4,7 +4,9 @@
       "mcp__Claude_Preview__preview_start",
       "Bash(npx kill-port:*)",
       "Bash(taskkill /F /IM serve.exe)",
-      "Bash(taskkill /F /IM node.exe /FI \"WINDOWTITLE eq serve*\")"
+      "Bash(taskkill /F /IM node.exe /FI \"WINDOWTITLE eq serve*\")",
+      "Bash(npm run:*)",
+      "Bash(npx next:*)"
     ]
   }
 }
